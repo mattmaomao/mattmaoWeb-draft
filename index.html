@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- icon on tab -->
+    <link rel="shortcut icon" href="img/chomusuke.png" />
+
+    <!-- title display on tab -->
+    <title>My website</title>
+
+    <!-- stylesheet-->
+    <link rel="stylesheet" href="styles/style.css" />
+  </head>
+
+  <body>
+    <div class="row-container">
+      <!-- sky -->
+      <section style="background-color: rgb(0, 200, 256); flex-grow: 1">
+        <!-- setting button -->
+        <div style="text-align: right">
+          <p style="display: inline; vertical-align: middle">
+            not yet develop ->
+          </p>
+
+          <!-- night mode toggle -->
+          <label class="dark-switch">
+            <input type="checkbox" />
+            <span class="dark-slider"></span>
+          </label>
+
+          <!-- white space -->
+          &nbsp;
+
+          <!-- language set -->
+          <button
+            class="button"
+            style="
+              background-color: rgb(200, 235, 250);
+              padding: 5px 5px;
+              font-size: 14px;
+            ">
+            lang
+          </button>
+        </div>
+
+        <!-- welcome msg -->
+        <header class="container" style="padding-bottom: 10%">
+          <div style="text-align: center; font-size: 32px">
+            <h1>Welcome To</h1>
+            <h1>
+              <em><u>My website</u></em>
+            </h1>
+          </div>
+        </header>
+
+        <!-- start button -->
+        <div style="text-align: center">
+          <script>
+            // wait 0.3 sec before going to next page
+            function shine() {
+              document.getElementById("start-button").style.backgroundColor = "#fff0a7";
+              setTimeout(function () {
+                window.location.href = "html/main.html";
+              }, 300);
+            }
+          </script>
+          
+          <style>
+            .start-button {
+              border-radius: 100%;
+              background-color: rgb(233, 203, 60);
+              width: 128px;
+              height: 128px;
+              font-size: 24px;
+            }
+            .start-button:hover {
+              background-color: rgb(244, 216, 75);
+              transition: 0.5s;
+              -webkit-transform: translateY(-30px);
+              transform: translateY(-30px);
+            }
+          </style>
+
+          <button id="start-button" class="button start-button" onclick="shine()">
+            <b>Start!</b>
+          </button>
+        </div>
+      </section>
+
+      <!-- ocean -->
+      <section style="background-color: rgb(0, 100, 200); flex-grow: 1">
+        this is ocean
+      </section>
+
+      <!-- beach -->
+      <section style="background-color: rgb(246, 240, 196); flex-grow: 2">
+        this is beach
+      </section>
+
+      <!-- floating texts maybe-->
+
+      <!-- footer -->
+      <footer>footer</footer>
+    </div>
+  </body>
+</html>

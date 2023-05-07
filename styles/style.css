@@ -1,0 +1,139 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  border: none;
+  outline: none;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+}
+
+.container {
+  position: relative;
+  width: 100%;
+}
+
+.grid-container {
+  display: grid;
+  row-gap: 0;
+  column-gap: 0;
+}
+
+/* flexible height container*/
+.row-container {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+}
+
+.button {
+  cursor: pointer;
+  text-align: center;
+}
+
+/* toggle switch */
+/* The switch - the box around the slider */
+.dark-switch {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  height: 18px;
+  top: 4px;
+}
+
+/* Hide default HTML checkbox */
+.dark-switch input {
+  display: none;
+}
+
+/* the slider */
+.dark-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 24px;
+  background-color: rgb(0, 100, 200);
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+/* the button */
+.dark-slider:before {
+  position: absolute;
+  content: "";
+  height: 14px;
+  width: 14px;
+  left: 3px;
+  top: 2px;
+  border-radius: 50%;
+  background-color: rgb(233, 203, 60);
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+input:checked + .dark-slider {
+  background-color: black;
+}
+
+input:checked + .dark-slider:before {
+  -webkit-transform: translateX(20px);
+  transform: translateX(20px);
+  background-color: #ccc;
+}
+
+.header {
+  display: flex;
+  position: relative;
+  height: 120px;
+
+  /* debug */
+  background-color: lime;
+}
+
+.nav-bar {
+  margin-left: 3%;
+  margin-right: 3%;
+  display: flex;
+  height: 50px;
+}
+
+.nav-item {
+  flex-grow: 1;
+  padding-left: 10px;
+  padding-right: 10px;
+  text-align: center;
+
+  /* debug */
+  background-color: rgba(255, 170, 0, 0.7);
+}
+
+.content-container {
+  display: flex;
+  margin-left: 3%;
+  margin-right: 3%;
+  flex-grow: 1;
+
+  /* debug */
+  background-color: rgba(176, 220, 0, 0.3);
+}
+
+.content-item {
+  width: 100%;
+}
+
+footer {
+  bottom: 0;
+  width: 100%;
+  background: grey;
+  text-align: right;
+  padding: 5px;
+  font-size: 12px;
+}
