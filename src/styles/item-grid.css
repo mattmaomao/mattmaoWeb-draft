@@ -1,0 +1,66 @@
+/* things */
+.thing-grid {
+  margin: 1%;
+
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  column-gap: 36px;
+  row-gap: 36px;
+}
+@media (max-width: 1212px) {
+  .thing-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+@media (max-width: 936px) {
+  .thing-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 600px) {
+  .thing-grid {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+.things {
+  justify-self: center;
+  width: 240px;
+  min-height: 360px;
+  max-height: 400px;
+  display: grid;
+  grid-template-rows: 240px 1fr;
+  outline: auto;
+  outline-color: black;
+}
+
+.thing-image {
+  width: 100%;
+  height: 100%;
+  outline: auto;
+
+  outline-color: black;
+
+  cursor: pointer;
+}
+
+.thing-info {
+  margin: 8px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 4px;
+}
+
+.thing-info .tag {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.thing-info .description {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
