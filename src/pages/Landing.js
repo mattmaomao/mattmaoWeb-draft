@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import { collection } from "firebase/firestore";
 
 import { Home } from "./Home";
@@ -10,6 +9,8 @@ import { Help } from "./Help";
 import "../styles/landing.css";
 
 export function Landing({ db }) {
+  const [contentPage, setContentPage] = useState(<Home />);
+
   //set content container height
   useEffect(() => {
     const headerHeight = document.getElementById("header").offsetHeight;
@@ -26,127 +27,152 @@ export function Landing({ db }) {
     const navBar = document.getElementById("nav-bar");
     navBar.style.zIndex = "1";
   });
-
+  // change the title of Things in navbar
   function changeTitle(title) {
     const ThingsTab = document.getElementById("Things");
     ThingsTab.innerText = title === "" ? "Things" : "Things => " + title;
+  }
+
+  // change content page component
+  function changeContent(content) {
+    let com = <Home />;
+    switch (content) {
+      case "/":
+        com = <Home />;
+        break;
+      case "/Draw":
+        com = <Things colRef={collection(db, "Drawings")} />;
+        break;
+      case "/Game":
+        com = <Things colRef={collection(db, "Games")} />;
+        break;
+      case "/Story":
+        com = <Things colRef={collection(db, "Drawings")} />;
+        break;
+      case "/Devlogs":
+        com = <Things colRef={collection(db, "DevLogs")} />;
+        break;
+      case "/Help":
+        com = <Help />;
+        break;
+      case "/About":
+        com = <About />;
+        break;
+      default:
+        com = <Home />;
+        break;
+    }
+    setContentPage(com);
   }
 
   console.log(db);
 
   return (
     <>
-      <Router>
-        {/* setting button */}
-        <div className="setting">
-          {/* later */}
-          {/* night mode toggle */}
-          <label className="dark-switch">
-            <input id="dark-slider" type="checkbox" />
-            <span className="dark-slider"></span>
-          </label>
-          {/* white space */}
-          &nbsp;
-        </div>
+      {/* setting button */}
+      <div className="setting">
+        {/* later */}
+        {/* night mode toggle */}
+        <label className="dark-switch">
+          <input id="dark-slider" type="checkbox" />
+          <span className="dark-slider"></span>
+        </label>
+        {/* white space */}
+        &nbsp;
+      </div>
 
-        {/* header */}
-        <div className="header" id="header">
-          header ~put image here~
-        </div>
+      {/* header */}
+      <div className="header" id="header">
+        header ~put image here~
+      </div>
 
-        {/* nav bar */}
-        <div className="nav-bar" id="nav-bar">
-          <Link
-            className="nav-item button"
-            to="mattmaoWeb/"
-            onClick={() => changeTitle("")}>
-            <button>Home</button>
-          </Link>
+      {/* nav bar */}
+      <div className="nav-bar" id="nav-bar">
+        <button
+          className="nav-item button"
+          onClick={() => {
+            changeTitle("");
+            changeContent("/");
+          }}>
+          Home
+        </button>
 
-          {/* make dorp bar */}
-          <div className="nav-item dropdown dropdown1">
-            <p id="Things">Things</p>
-            <div className="dropdown-content">
-              <ul>
-                <li>
-                  <Link
-                    className="button"
-                    to="mattmaoWeb/Draw"
-                    onClick={() => changeTitle("Draw")}>
-                    <button>Draw</button>
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    className="button"
-                    to="mattmaoWeb/Game"
-                    onClick={() => changeTitle("Game")}>
-                    <button>Game</button>
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    className="button"
-                    to="mattmaoWeb/Story"
-                    onClick={() => changeTitle("Story")}>
-                    <button>Story</button>
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    className="button"
-                    to="mattmaoWeb/Devlogs"
-                    onClick={() => changeTitle("Dev Logs")}>
-                    <button>Dev Logs</button>
-                  </Link>
-                </li>
-              </ul>
-            </div>
+        {/* make dorp bar */}
+        <div className="nav-item dropdown dropdown1">
+          <p id="Things">Things</p>
+          <div className="dropdown-content">
+            <ul>
+              <li>
+                <button
+                  className="button"
+                  onClick={() => {
+                    changeTitle("Draw");
+                    changeContent("/Draw");
+                  }}>
+                  Draw
+                </button>
+              </li>
+              <li>
+                <button
+                  className="button"
+                  onClick={() => {
+                    changeTitle("Game");
+                    changeContent("/Game");
+                  }}>
+                  Game
+                </button>
+              </li>
+              <li>
+                <button
+                  className="button"
+                  onClick={() => {
+                    changeTitle("Story");
+                    changeContent("/Story");
+                  }}>
+                  Story
+                </button>
+              </li>
+              <li>
+                <button
+                  className="button"
+                  onClick={() => {
+                    changeTitle("Dev Logs");
+                    changeContent("/Dev Logs");
+                  }}>
+                  Dev Logs
+                </button>
+              </li>
+            </ul>
           </div>
-
-          <Link
-            className="nav-item button"
-            to="mattmaoWeb/About"
-            onClick={() => changeTitle("")}>
-            <button>About</button>
-          </Link>
-
-          <Link
-            className="nav-item button"
-            to="mattmaoWeb/Help"
-            onClick={() => changeTitle("")}>
-            <button>Help</button>
-          </Link>
-        </div>
-        
-        {/* content container display selected section */}
-        <div className="content-container" id="content-container">
-          {/* get page accordingly */}
-
-          <Routes>
-            <Route exact path="mattmaoWeb/" element={<Home />}></Route>
-
-            <Route
-              path="mattmaoWeb/Draw"
-              element={<Things colRef={collection(db, "Drawings")} />}></Route>
-            <Route
-              path="mattmaoWeb/Game"
-              element={<Things colRef={collection(db, "Games")} />}></Route>
-            <Route
-              path="mattmaoWeb/Story"
-              element={<Things colRef={collection(db, "Drawings")} />}></Route>
-            <Route
-              path="mattmaoWeb/Devlogs"
-              element={<Things colRef={collection(db, "DevLogs")} />}></Route>
-
-            <Route path="mattmaoWeb/Help" element={<Help />}></Route>
-            <Route path="mattmaoWeb/About" element={<About />}></Route>
-          </Routes>
         </div>
 
-        {/* footer */}
-        <footer id="footer">Footer</footer>
-      </Router>
+        <button
+          className="nav-item button"
+          onClick={() => {
+            changeTitle("");
+            changeContent("/About");
+          }}>
+          About
+        </button>
+
+        <button
+          className="nav-item button"
+          onClick={() => {
+            changeTitle("");
+            changeContent("/Help");
+          }}>
+          Help
+        </button>
+      </div>
+
+      {/* content container display selected section */}
+      <div className="content-container" id="content-container">
+        {/* get page accordingly */}
+        {contentPage}
+      </div>
+
+      {/* footer */}
+      <footer id="footer">Footer</footer>
     </>
   );
 }
