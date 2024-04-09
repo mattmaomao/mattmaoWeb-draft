@@ -4,7 +4,7 @@ export function ItemBlock({ title, image, date, tag, description }) {
       {/* item block */}
       <div className="things">
         {/* image */}
-        <img className="thing-image" src={image} alt="where's my img :(" />
+        <img className="thing-image" src={"./img/" + image} alt="where's my img :(" />
         {/* info */}
         <div className="thing-info">
           {/* title */}

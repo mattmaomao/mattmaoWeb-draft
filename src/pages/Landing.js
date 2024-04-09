@@ -29,8 +29,10 @@ export function Landing({ db }) {
 
   function changeTitle(title) {
     const ThingsTab = document.getElementById("Things");
-    ThingsTab.innerText = title == "" ? "Things" : "Things => " + title;
+    ThingsTab.innerText = title === "" ? "Things" : "Things => " + title;
   }
+
+  console.log(db);
 
   return (
     <>
@@ -56,7 +58,7 @@ export function Landing({ db }) {
         <div className="nav-bar" id="nav-bar">
           <Link
             className="nav-item button"
-            to="/"
+            to="mattmaoWeb/"
             onClick={() => changeTitle("")}>
             <button>Home</button>
           </Link>
@@ -69,7 +71,7 @@ export function Landing({ db }) {
                 <li>
                   <Link
                     className="button"
-                    to="/Draw"
+                    to="mattmaoWeb/Draw"
                     onClick={() => changeTitle("Draw")}>
                     <button>Draw</button>
                   </Link>
@@ -77,7 +79,7 @@ export function Landing({ db }) {
                 <li>
                   <Link
                     className="button"
-                    to="/Game"
+                    to="mattmaoWeb/Game"
                     onClick={() => changeTitle("Game")}>
                     <button>Game</button>
                   </Link>
@@ -85,7 +87,7 @@ export function Landing({ db }) {
                 <li>
                   <Link
                     className="button"
-                    to="/Story"
+                    to="mattmaoWeb/Story"
                     onClick={() => changeTitle("Story")}>
                     <button>Story</button>
                   </Link>
@@ -93,7 +95,7 @@ export function Landing({ db }) {
                 <li>
                   <Link
                     className="button"
-                    to="/Devlogs"
+                    to="mattmaoWeb/Devlogs"
                     onClick={() => changeTitle("Dev Logs")}>
                     <button>Dev Logs</button>
                   </Link>
@@ -104,14 +106,14 @@ export function Landing({ db }) {
 
           <Link
             className="nav-item button"
-            to="/About"
+            to="mattmaoWeb/About"
             onClick={() => changeTitle("")}>
             <button>About</button>
           </Link>
 
           <Link
             className="nav-item button"
-            to="/Help"
+            to="mattmaoWeb/Help"
             onClick={() => changeTitle("")}>
             <button>Help</button>
           </Link>
@@ -122,23 +124,23 @@ export function Landing({ db }) {
           {/* get page accordingly */}
 
           <Routes>
-            <Route exact path="/" element={<Home />}></Route>
+            <Route exact path="mattmaoWeb/" element={<Home />}></Route>
 
             <Route
-              path="/Draw"
+              path="mattmaoWeb/Draw"
               element={<Things colRef={collection(db, "Drawings")} />}></Route>
             <Route
-              path="/Game"
+              path="mattmaoWeb/Game"
               element={<Things colRef={collection(db, "Games")} />}></Route>
             <Route
-              path="/Story"
+              path="mattmaoWeb/Story"
               element={<Things colRef={collection(db, "Drawings")} />}></Route>
             <Route
-              path="/Devlogs"
+              path="mattmaoWeb/Devlogs"
               element={<Things colRef={collection(db, "DevLogs")} />}></Route>
 
-            <Route path="/Help" element={<Help />}></Route>
-            <Route path="/About" element={<About />}></Route>
+            <Route path="mattmaoWeb/Help" element={<Help />}></Route>
+            <Route path="mattmaoWeb/About" element={<About />}></Route>
           </Routes>
         </div>
 
