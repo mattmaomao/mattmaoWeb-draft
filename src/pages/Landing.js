@@ -56,7 +56,7 @@ export function Landing({ db }) {
         com = <Help />;
         break;
       case "/About":
-        com = <About />;
+        com = <About colRef={collection(db, "Quotes")}/>;
         break;
       default:
         com = <Home />;
@@ -64,8 +64,6 @@ export function Landing({ db }) {
     }
     setContentPage(com);
   }
-
-  console.log(db);
 
   return (
     <>

@@ -1,6 +1,9 @@
-import { useEffect, useRef } from "react";
+import React from 'react';
+import { useEffect, useRef, useState } from "react";
+import { getDocs } from "firebase/firestore";
 
-export function About() {
+export function About({ colRef }) {
+  // styles
   const style = {
     ".short-info": {
       display: "flex",
@@ -37,9 +40,8 @@ export function About() {
       backgroundColor: "#888",
     },
     ".img-container img": { width: "100%", height: "100%" },
-    ".longer-info": { margin: "0 10px", lineHeight: 1.2 },
+    ".quote-of-the-day": { margin: "0 10px" },
   };
-
   const ref = useRef(null);
   // set css for this component only
   useEffect(() => {
@@ -57,6 +59,28 @@ export function About() {
     }
   }, []);
 
+  const [quote, setQuote] = useState("");
+  useEffect(() => {
+    getDocs(colRef).then((snap) => {
+      const quotes = snap.docs;
+      const rand = Math.floor(Math.random() * quotes.length);
+      setQuote(quotes[rand].data());
+    });
+  }, [colRef]);
+
+  const getQuote = () => {
+    if (quote.content) {
+      const temp = quote.content.split("\\n");
+      const str = temp.map((line, index) => (
+        <React.Fragment key={index}>
+          {line}
+          <br/>
+        </React.Fragment>
+      ));
+      return str;
+    }
+  };
+
   return (
     <>
       <div ref={ref}>
@@ -69,7 +93,7 @@ export function About() {
               </tr>
               <tr>
                 <th>Skill</th>
-                <td>make random shit</td>
+                <td>make random thing</td>
               </tr>
               <tr>
                 <th>Interest</th>
@@ -81,7 +105,7 @@ export function About() {
               </tr>
               <tr>
                 <th>Length</th>
-                <td>190, 30 (cm)</td>
+                <td>6', 30cm</td>
               </tr>
             </tbody>
           </table>
@@ -89,8 +113,10 @@ export function About() {
             <img src="./img/chomusuke.png" alt="bruh my img :(" />
           </div>
         </div>
-        <div className="longer-info">
-          Wtf is this shit. gonna replace this with random quote of the day.
+        <div className="quote-of-the-day">
+          <h3 style={{marginBottom: "16px"}}>Quote of the day:</h3>
+          <p style={{marginBottom: "8px"}}>{getQuote()}</p>
+          <p>- {quote.author}</p>
         </div>
       </div>
     </>

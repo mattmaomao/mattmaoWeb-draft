@@ -94,6 +94,7 @@ export function SortFilterBar({
             />
             <p>ascending order</p>
           </div>
+          
           {/* filter list */}
           <div className="thing-opt-item">
             <p className="dropdown-label">Filter By:</p>
@@ -121,6 +122,7 @@ export function SortFilterBar({
           </div>
         </nav>
         <a
+          href="#"
           className="thing-opt-item button arrow"
           onClick={() => changePage(currPage + 1)}>
           {!lastPage && firstPage ^ lastPage && "next page >"}
