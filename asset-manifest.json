@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/mattmaoWeb/static/css/main.7f5a7f16.css",
+    "main.js": "/mattmaoWeb/static/js/main.25034b80.js",
+    "static/js/453.a0345f9e.chunk.js": "/mattmaoWeb/static/js/453.a0345f9e.chunk.js",
+    "index.html": "/mattmaoWeb/index.html",
+    "main.7f5a7f16.css.map": "/mattmaoWeb/static/css/main.7f5a7f16.css.map",
+    "main.25034b80.js.map": "/mattmaoWeb/static/js/main.25034b80.js.map",
+    "453.a0345f9e.chunk.js.map": "/mattmaoWeb/static/js/453.a0345f9e.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.7f5a7f16.css",
+    "static/js/main.25034b80.js"
+  ]
+}
