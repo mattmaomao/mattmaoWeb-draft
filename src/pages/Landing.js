@@ -47,9 +47,9 @@ export function Landing({ db }) {
         com = <Things colRef={collection(db, "Games")} />;
         break;
       case "/Story":
-        com = <Things colRef={collection(db, "Drawings")} />;
+        com = <Things colRef={collection(db, "Story")} />;
         break;
-      case "/Devlogs":
+      case "/DevLogs":
         com = <Things colRef={collection(db, "DevLogs")} />;
         break;
       case "/Help":
@@ -135,7 +135,7 @@ export function Landing({ db }) {
                   className="button"
                   onClick={() => {
                     changeTitle("Dev Logs");
-                    changeContent("/Dev Logs");
+                    changeContent("/DevLogs");
                   }}>
                   Dev Logs
                 </button>
@@ -170,7 +170,7 @@ export function Landing({ db }) {
       </div>
 
       {/* footer */}
-      <footer id="footer">Footer</footer>
+      <footer id="footer">© Made by Matt</footer>
     </>
   );
 }

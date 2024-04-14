@@ -60,9 +60,10 @@ export function Things({ colRef }) {
         sortAscend = !sortAscend;
       }
 
-      const numOfPage = Math.ceil(items.length / maxItemPerPage);
-      changePage(0);
+      // calculate page number, at least 1
+      const numOfPage = Math.max(Math.ceil(items.length / maxItemPerPage), 1);
       setTotalPage(numOfPage);
+      changePage(0, numOfPage);
 
       return items;
     });
@@ -86,10 +87,10 @@ export function Things({ colRef }) {
   //#endregion
 
   //change page
-  function changePage(pageNum) {
+  function changePage(pageNum, total) {
     setCurrPage(pageNum);
     setFirtPage(pageNum === 0);
-    setLastPage(pageNum === totalPage - 1);
+    setLastPage(pageNum === total - 1);
   }
 
   // grab data on load
@@ -125,7 +126,14 @@ export function Things({ colRef }) {
         lastPage={lastPage}
         changePage={changePage}
         // get all tag in the whole collection
-        tagList={[... new Set(database.map((item) => item.tag).flat().filter(Boolean))].sort()}
+        tagList={[
+          ...new Set(
+            database
+              .map((item) => item.tag)
+              .flat()
+              .filter(Boolean)
+          ),
+        ].sort()}
       />
 
       {/* grid/flex box */}
