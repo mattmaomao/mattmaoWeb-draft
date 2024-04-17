@@ -49,10 +49,6 @@ export function About({ colRef }) {
               <th>Love</th>
               <td>cat, girl, cat girl</td>
             </tr>
-            <tr>
-              <th>Length</th>
-              <td>6', 30cm</td>
-            </tr>
           </tbody>
         </table>
         <div className="img-container">
