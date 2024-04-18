@@ -1,4 +1,5 @@
-import { useState, useEffect, useInsertionEffect } from "react";
+import React from "react";
+import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { getDoc, doc } from "firebase/firestore";
 
@@ -20,9 +21,19 @@ export function ThingDetail({ db }) {
     });
   }, []);
 
-  useEffect(() => {
-    console.log(item);
-  }, item);
+  // set format of next line
+  const getContent = () => {
+    if (item?.content) {
+      const temp = item.content.split("\\n");
+      const str = temp.map((line, index) => (
+        <React.Fragment key={index}>
+          {line}
+          <br />
+        </React.Fragment>
+      ));
+      return str;
+    }
+  };
 
   return (
     <>
@@ -30,8 +41,16 @@ export function ThingDetail({ db }) {
 
       {/* content container display selected section */}
       <div className="content-container" id="content-container">
-        <p>detail of this thing</p>
-        <div>{item?.description}</div>
+        <div className="detailed">
+          <p className="title">{item?.title}</p>
+          <p className="date">{item?.date}</p>
+          <p className="tag">{item?.tag.map((x) => "#" + x + " ")}</p>
+          <p className="description">{item?.description}</p>
+          {item?.image && (
+            <img className="image" src={"./img/" + item?.image} alt="" />
+          )}
+          <p className="content">{getContent()}</p>
+        </div>
       </div>
 
       {/* footer */}

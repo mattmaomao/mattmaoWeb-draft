@@ -48,6 +48,7 @@
 }
 .quote-of-the-day .content {
   margin: 8px;
+  line-height: 1.5em;
 }
 .quote-of-the-day .author {
   margin-left: 32px;

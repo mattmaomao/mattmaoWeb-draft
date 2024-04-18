@@ -1,0 +1,23 @@
+.detailed .title {
+  text-align: center;
+  font-weight: bold;
+  font-size: 24px;
+  margin: 16px;
+}
+
+.detailed .description {
+  margin: 8px;
+  padding-bottom: 16px;
+  border-bottom: solid 1px black;
+}
+
+.detailed .date,
+.detailed .tag {
+  display: inline-block;
+  margin: 8px;
+}
+
+.detailed .content {
+  margin: 8px;
+  line-height: 2em;
+}

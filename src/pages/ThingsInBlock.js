@@ -148,7 +148,7 @@ export function ThingsInBlock({ itemType, colRef }) {
           {itemList
             .map((item, index) => {
               // receive and return according to item
-              return <ItemBlock {...item} key={index} />;
+              return <ItemBlock {...item} itemType={itemType} key={index} />;
             })
             .slice(maxItemPerPage * currPage, maxItemPerPage * (currPage + 1))}
         </div>

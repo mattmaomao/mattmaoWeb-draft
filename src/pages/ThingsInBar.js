@@ -148,7 +148,7 @@ export function ThingsInBar({ itemType, colRef }) {
           {itemList
             .map((item, index) => {
               // receive and return according to item
-              return <ItemBar {...item} key={index} />;
+              return <ItemBar {...item} itemType={itemType} key={index} />;
             })
             .slice(maxItemPerPage * currPage, maxItemPerPage * (currPage + 1))}
         </div>
