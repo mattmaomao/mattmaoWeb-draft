@@ -1,29 +1,15 @@
 /* things */
-.thing-grid {
+.block-grid {
   margin: 1%;
-
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  display: flex;
+  flex-wrap: wrap;
   column-gap: 36px;
   row-gap: 36px;
-}
-@media (max-width: 1212px) {
-  .thing-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-@media (max-width: 936px) {
-  .thing-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-@media (max-width: 600px) {
-  .thing-grid {
-    grid-template-columns: repeat(1, 1fr);
-  }
+  justify-content: center;
+  align-items: center;
 }
 
-.things {
+.blocks {
   justify-self: center;
   width: 240px;
   min-height: 360px;
@@ -34,7 +20,7 @@
   outline-color: black;
 }
 
-.thing-image {
+.block-image {
   width: 100%;
   height: 100%;
   outline: auto;
@@ -44,21 +30,21 @@
   cursor: pointer;
 }
 
-.thing-info {
+.block-info {
   margin: 8px;
   display: flex;
   flex-direction: column;
   row-gap: 4px;
 }
 
-.thing-info .tag {
+.block-info .tag {
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
 
-.thing-info .description {
+.block-info .description {
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;

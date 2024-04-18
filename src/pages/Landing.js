@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 import { collection } from "firebase/firestore";
 
 import { Home } from "./Home";
-import { Things } from "./Things";
+import { ThingsInBlock } from "./ThingsInBlock";
+import { ThingsInBar } from "./ThingsInBar";
 import { About } from "./About";
 import { Help } from "./Help";
 import { DB } from "./DB";
@@ -43,25 +44,45 @@ export function Landing({ db }) {
         com = <Home />;
         break;
       case "/Draw":
-        com = <Things colRef={collection(db, "Drawings")} />;
+        com = (
+          <ThingsInBlock
+            itemType={"Drawings"}
+            colRef={collection(db, "Drawings")}
+          />
+        );
         break;
       case "/Game":
-        com = <Things colRef={collection(db, "Games")} />;
+        com = (
+          <ThingsInBlock itemType={"Games"} colRef={collection(db, "Games")} />
+        );
         break;
       case "/Story":
-        com = <Things colRef={collection(db, "Stories")} />;
+        com = (
+          <ThingsInBar
+            itemType={"Stories"}
+            colRef={collection(db, "Stories")}
+          />
+        );
         break;
       case "/DevLogs":
-        com = <Things colRef={collection(db, "DevLogs")} />;
+        com = (
+          <ThingsInBar
+            itemType={"DevLogs"}
+            colRef={collection(db, "DevLogs")}
+          />
+        );
+        break;
+      case "/ThingDetail":
+        // com = <DB db={db} />;
         break;
       case "/Help":
         com = <Help />;
         break;
       case "/About":
-        com = <About colRef={collection(db, "Quotes")}/>;
+        com = <About colRef={collection(db, "Quotes")} />;
         break;
       case "/Database":
-        com = <DB db={db}/>;
+        com = <DB db={db} />;
         break;
       default:
         com = <Home />;
@@ -73,11 +94,11 @@ export function Landing({ db }) {
   // open database
   const openDBFunc = () => {
     changeContent("/Database");
-  }
-  const openDB = SecretInput(process.env.REACT_APP_FB_INPUTKE, openDBFunc);
+  };
+  const openDB = SecretInput(process.env.REACT_APP_FB_INPUTKEY, openDBFunc);
   const closeDBFunc = () => {
     changeContent("/");
-  }
+  };
   const closeDB = SecretInput("byedatabase", closeDBFunc);
 
   return (

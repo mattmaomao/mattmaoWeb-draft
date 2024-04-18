@@ -1,0 +1,38 @@
+/* things */
+.bar-grid {
+  margin: 1%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.bars {
+  width: 100%;
+  padding: 16px 8px;
+  font-size: 18px;
+
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: row;
+
+  border-bottom: 1px solid black;
+}
+
+.bars .title,
+.bars .date {
+  flex: 2;
+}
+.bars .tags {
+  flex: 3;
+}
+.bars .description {
+  flex: 10;
+}
+
+.bars .title,
+.bars .description,
+.bars .tags {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}

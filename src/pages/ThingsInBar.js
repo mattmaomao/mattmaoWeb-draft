@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
-import { ItemBlock } from "../components/itemBlock";
+import { ItemBar } from "../components/ItemBar";
 import { SortFilterBar } from "../components/SortFilterBar";
 import { getDocs } from "firebase/firestore";
 
-import "../styles/item-grid.css";
+import "../styles/bar-grid.css";
 
-export function Things({ colRef }) {
+export function ThingsInBar({ colRef }) {
   const [database, setDatabase] = useState([]);
   const [itemList, setItemList] = useState([]);
   const [sortMethod, setSortList] = useState("");
@@ -137,11 +137,11 @@ export function Things({ colRef }) {
       />
 
       {/* grid/flex box */}
-      <div className="thing-grid">
+      <div className="bar-grid">
         {itemList
           .map((item, index) => {
             // receive and return according to item
-            return <ItemBlock {...item} key={index} />;
+            return <ItemBar {...item} key={index} />
           })
           .slice(maxItemPerPage * currPage, maxItemPerPage * (currPage + 1))}
       </div>

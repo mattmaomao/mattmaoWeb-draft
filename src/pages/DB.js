@@ -10,7 +10,7 @@ export function DB({ db }) {
   const [Ccontent, setCContent] = useState("");
   const [link, setLink] = useState("");
   const [image, setImage] = useState("");
-  const [tags, setTags] = useState("");
+  const [tag, setTags] = useState("");
 
   const [author, setAuthor] = useState("");
   const [Qcontent, setQContent] = useState("");
@@ -56,7 +56,7 @@ export function DB({ db }) {
       content: Ccontent,
       link,
       image,
-      tags,
+      tag: tag === "" ? [] : tag.split(",").map(i => i.trim()),
     };
     for (let key in formData) if (formData[key] === "") delete formData[key];
 
@@ -212,7 +212,7 @@ export function DB({ db }) {
             <td>
               <input
                 type="text"
-                value={tags}
+                value={tag}
                 placeholder="tag1, tag2, ..."
                 onChange={handleTagsChange}
               />

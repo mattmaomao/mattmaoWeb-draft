@@ -1,10 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FilteringTag } from "./FilteringTag";
 import { SortMethod } from "./SortMethod";
 
 import "../styles/sortBar.css";
 
-const sortList = ["None", "Title", "Date"];
+const sortList = ["Date", "Title"];
 
 export function SortFilterBar({
   onSortChange,
@@ -16,8 +16,8 @@ export function SortFilterBar({
   changePage,
   tagList,
 }) {
-  const [selectedSort, setSelectedSort] = useState("");
-  const [sortOrder, setSortOrder] = useState(true);
+  const [selectedSort, setSelectedSort] = useState("Date");
+  const [sortOrder, setSortOrder] = useState(false);
   const [selectedFilters, setSelectedFilters] = useState([]);
 
   // sort method
@@ -49,6 +49,14 @@ export function SortFilterBar({
       onFilterChange(newFilters);
     }
   };
+
+  // on load sort
+  useEffect(() => {
+    setSelectedSort(selectedSort);
+    onSortChange(selectedSort);
+    setSortOrder(sortOrder);
+    onOrderChange(sortOrder);
+  });
 
   return (
     <>
@@ -94,7 +102,7 @@ export function SortFilterBar({
             />
             <p>ascending order</p>
           </div>
-          
+
           {/* filter list */}
           <div className="thing-opt-item">
             <p className="dropdown-label">Filter By:</p>
