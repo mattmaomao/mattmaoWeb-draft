@@ -2,6 +2,9 @@ import React from "react";
 import { useEffect, useState } from "react";
 import { getDocs } from "firebase/firestore";
 
+import { Header } from "../components/Header";
+import { Footer } from "../components/Footer";
+
 import "../styles/About.css";
 
 export function About({ colRef }) {
@@ -30,52 +33,60 @@ export function About({ colRef }) {
 
   return (
     <>
-      <div className="short-info">
-        <table className="text-container">
-          <tbody>
-            <tr>
-              <th>Name</th>
-              <td>Matt</td>
-            </tr>
-            <tr>
-              <th>Skill</th>
-              <td>make random thing</td>
-            </tr>
-            <tr>
-              <th>Interest</th>
-              <td>make thing</td>
-            </tr>
-            <tr>
-              <th>Love</th>
-              <td>cat, girl, cat girl</td>
-            </tr>
-          </tbody>
-        </table>
-        <div className="img-container">
-          <img src="./img/chomusuke.png" alt="bruh my img :(" />
+      <Header />
+
+      {/* content container display selected section */}
+      <div className="content-container" id="content-container">
+        <div className="short-info">
+          <table className="text-container">
+            <tbody>
+              <tr>
+                <th>Name</th>
+                <td>Matt</td>
+              </tr>
+              <tr>
+                <th>Skill</th>
+                <td>make random thing</td>
+              </tr>
+              <tr>
+                <th>Interest</th>
+                <td>make thing</td>
+              </tr>
+              <tr>
+                <th>Love</th>
+                <td>cat, girl, cat girl</td>
+              </tr>
+            </tbody>
+          </table>
+          <div className="img-container">
+            <img src="./img/chomusuke.png" alt="bruh my img :(" />
+          </div>
+        </div>
+        {/* quote of the day */}
+        <div className="quote-of-the-day">
+          <h3>Quote of the day:</h3>
+          <p className="content">{getQuote()}</p>
+          <p className="author">- {quote.author}</p>
+        </div>
+        <div className="newQuote">
+          <input type="checkbox" id="showForm" />
+          <p>
+            Want to show your own quote?{" "}
+            <label htmlFor="showForm">Click me</label>
+          </p>
+
+          <iframe
+            title="google form"
+            src="https://docs.google.com/forms/d/e/1FAIpQLSc1ezBnG5uCTn4JmX8Ra9Kdy_rcwngxcYYk6CEvQseH2vX2ow/viewform?embedded=true"
+            width="640"
+            height="500">
+            Loading...
+          </iframe>
         </div>
       </div>
-      {/* quote of the day */}
-      <div className="quote-of-the-day">
-        <h3>Quote of the day:</h3>
-        <p className="content">{getQuote()}</p>
-        <p className="author">- {quote.author}</p>
-      </div>
-      <div className="newQuote">
-        <input type="checkbox" id="showForm" />
-        <p>
-          Want to show your own quote?{" "}
-          <label htmlFor="showForm">Click me</label>
-        </p>
 
-        <iframe
-          title="google form"
-          src="https://docs.google.com/forms/d/e/1FAIpQLSc1ezBnG5uCTn4JmX8Ra9Kdy_rcwngxcYYk6CEvQseH2vX2ow/viewform?embedded=true"
-          width="640"
-          height="500">
-          Loading...
-        </iframe>
-      </div>
+      {/* footer */}
+      <Footer />
     </>
   );
 }

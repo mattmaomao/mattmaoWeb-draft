@@ -1,12 +1,13 @@
 .DB_Table {
   padding: 16px;
-  width: 90%;
+  width: 100%;
 }
 
 .DB_Table th {
   width: 240px;
   padding: 8px;
   text-align: left;
+  font-size: 18px;
 }
 
 .DB_Table .title,
@@ -28,11 +29,25 @@
   padding: 0 16px;
 }
 
-label {
-  font-size: 18px;
-  margin-right: 8px;
+.required {
+  color: red;
 }
 
-.required {
+/* popup */
+.popup {
+  width: 200px;
+  height: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  
+  background-color: #eeee;
+  border: solid 1px black;
+  border-radius: 4px;
+}
+.popup p {
+  font-size: 20px;
+  margin: 4px;
   color: red;
 }

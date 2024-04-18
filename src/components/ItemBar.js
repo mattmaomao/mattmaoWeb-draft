@@ -1,4 +1,7 @@
-export function ItemBar({ title, link, date, tag, description }) {
+import { Link } from "react-router-dom";
+import { setCurrThing } from "./GlobalVarible";
+
+export function ItemBar({ id, title, link, date, tag, description, itemType }) {
   // set the link for detailed page/ external link
   const setLink = () => {
     if (link) {
@@ -9,9 +12,9 @@ export function ItemBar({ title, link, date, tag, description }) {
       );
     } else {
       return (
-        <p className="title">
+        <Link to={`/mattmaoWeb/ThingDetail/${itemType}/${id}`} onClick={setCurrThing("")} className="title">
           <strong>{title}</strong>
-        </p>
+        </Link>
       );
     }
   };

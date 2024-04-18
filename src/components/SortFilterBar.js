@@ -56,7 +56,7 @@ export function SortFilterBar({
     onSortChange(selectedSort);
     setSortOrder(sortOrder);
     onOrderChange(sortOrder);
-  });
+  }, []);
 
   return (
     <>

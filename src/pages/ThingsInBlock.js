@@ -1,11 +1,14 @@
 import { useState, useEffect } from "react";
+import { getDocs } from "firebase/firestore";
+
+import { Header } from "../components/Header";
+import { Footer } from "../components/Footer";
 import { ItemBlock } from "../components/ItemBlock";
 import { SortFilterBar } from "../components/SortFilterBar";
-import { getDocs } from "firebase/firestore";
 
 import "../styles/block-grid.css";
 
-export function ThingsInBlock({ colRef }) {
+export function ThingsInBlock({ itemType, colRef }) {
   const [database, setDatabase] = useState([]);
   const [itemList, setItemList] = useState([]);
   const [sortMethod, setSortList] = useState("");
@@ -116,35 +119,43 @@ export function ThingsInBlock({ colRef }) {
 
   return (
     <>
-      {/* sort and filter */}
-      <SortFilterBar
-        onSortChange={sort}
-        onOrderChange={sortOrder}
-        onFilterChange={filter}
-        currPage={currPage}
-        firstPage={firstPage}
-        lastPage={lastPage}
-        changePage={changePage}
-        // get all tag in the whole collection
-        tagList={[
-          ...new Set(
-            database
-              .map((item) => item.tag)
-              .flat()
-              .filter(Boolean)
-          ),
-        ].sort()}
-      />
+      <Header />
 
-      {/* grid/flex box */}
-      <div className="block-grid">
-        {itemList
-          .map((item, index) => {
-            // receive and return according to item
-            return <ItemBlock {...item} key={index} />
-          })
-          .slice(maxItemPerPage * currPage, maxItemPerPage * (currPage + 1))}
+      {/* content container display selected section */}
+      <div className="content-container" id="content-container">
+        {/* sort and filter */}
+        <SortFilterBar
+          onSortChange={sort}
+          onOrderChange={sortOrder}
+          onFilterChange={filter}
+          currPage={currPage}
+          firstPage={firstPage}
+          lastPage={lastPage}
+          changePage={changePage}
+          // get all tag in the whole collection
+          tagList={[
+            ...new Set(
+              database
+                .map((item) => item.tag)
+                .flat()
+                .filter(Boolean)
+            ),
+          ].sort()}
+        />
+
+        {/* grid/flex box */}
+        <div className="block-grid">
+          {itemList
+            .map((item, index) => {
+              // receive and return according to item
+              return <ItemBlock {...item} key={index} />;
+            })
+            .slice(maxItemPerPage * currPage, maxItemPerPage * (currPage + 1))}
+        </div>
       </div>
+
+      {/* footer */}
+      <Footer />
     </>
   );
 }

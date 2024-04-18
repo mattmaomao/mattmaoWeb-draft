@@ -72,7 +72,7 @@ input:checked + .dark-slider:before {
 }
 
 /* general */
-.header {
+.banner {
   display: flex;
   position: relative;
   min-height: 100px;
@@ -88,4 +88,9 @@ footer {
   text-align: right;
   padding: 5px;
   font-size: 12px;
+}
+
+/* link */
+a {
+  color: black;
 }

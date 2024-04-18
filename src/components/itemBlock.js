@@ -1,13 +1,21 @@
-export function ItemBlock({ title, link, image, date, tag, description }) {
+import { Link } from "react-router-dom";
+import { setCurrThing } from "./GlobalVarible";
+
+export function ItemBlock({ id, title, link, image, date, tag, description, itemType }) {
   // set the link for detailed page/ external link
   const setLink = () => {
     if (link) {
-      return <a href={link} rel="noreferrer" target="_blank">
-        <strong>{title}</strong>
-      </a>;
-    }
-    else {
-      return <p><strong>{title}</strong></p>
+      return (
+        <a href={link} rel="noreferrer" target="_blank">
+          <strong>{title}</strong>
+        </a>
+      );
+    } else {
+      return (
+        <Link to={`/mattmaoWeb/ThingDetail/${itemType}/${id}`} onClick={setCurrThing("")} className="title">
+          <strong>{title}</strong>
+        </Link>
+      );
     }
   };
 
