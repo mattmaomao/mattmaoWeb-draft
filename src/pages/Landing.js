@@ -5,6 +5,8 @@ import { Home } from "./Home";
 import { Things } from "./Things";
 import { About } from "./About";
 import { Help } from "./Help";
+import { DB } from "./DB";
+import { SecretInput } from "../components/SecretInput";
 
 import "../styles/landing.css";
 
@@ -47,7 +49,7 @@ export function Landing({ db }) {
         com = <Things colRef={collection(db, "Games")} />;
         break;
       case "/Story":
-        com = <Things colRef={collection(db, "Story")} />;
+        com = <Things colRef={collection(db, "Stories")} />;
         break;
       case "/DevLogs":
         com = <Things colRef={collection(db, "DevLogs")} />;
@@ -58,12 +60,25 @@ export function Landing({ db }) {
       case "/About":
         com = <About colRef={collection(db, "Quotes")}/>;
         break;
+      case "/Database":
+        com = <DB db={db}/>;
+        break;
       default:
         com = <Home />;
         break;
     }
     setContentPage(com);
   }
+
+  // open database
+  const openDBFunc = () => {
+    changeContent("/Database");
+  }
+  const openDB = SecretInput(process.env.REACT_APP_FB_INPUTKE, openDBFunc);
+  const closeDBFunc = () => {
+    changeContent("/");
+  }
+  const closeDB = SecretInput("byedatabase", closeDBFunc);
 
   return (
     <>
