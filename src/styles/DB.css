@@ -46,8 +46,13 @@
   border: solid 1px black;
   border-radius: 4px;
 }
-.popup p {
+.popup .failure {
   font-size: 20px;
   margin: 4px;
   color: red;
+}
+.popup .success {
+  font-size: 20px;
+  margin: 4px;
+  color: green;
 }

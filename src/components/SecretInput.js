@@ -5,6 +5,7 @@ export function SecretInput(secretStr, callback) {
 
   useEffect(() => {
     if (secretStr === undefined) return;
+    
     const handleKeyDown = (event) => {
       const { key } = event;
       setEntered((prevKeys) => prevKeys + key);
@@ -18,6 +19,8 @@ export function SecretInput(secretStr, callback) {
   }, []);
 
   useEffect(() => {
+    if (secretStr === undefined) return;
+
     if (entered.endsWith(secretStr)) {
       callback();
       setEntered("");

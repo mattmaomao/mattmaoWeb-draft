@@ -19,7 +19,8 @@ export function DB({ db }) {
   const [author, setAuthor] = useState("");
   const [Qcontent, setQContent] = useState("");
 
-  const popRef = useRef();
+  const popupInvalid = useRef();
+  const popupSuccess = useRef();
 
   const handleTopicChange = (event) => {
     setTopic(event.target.value);
@@ -66,7 +67,7 @@ export function DB({ db }) {
     };
     for (let key in formData) if (formData[key] === "") delete formData[key];
 
-    if ((topic !== "" && title !== "" && date !== "" && description !== "") || process.env.REACT_APP_FB_INPUTKEY === undefined) {
+    if (topic !== "" && title !== "" && date !== "" && description !== "" && process.env.REACT_APP_FB_INPUTKEY !== undefined) {
       submitForm(topic, formData);
 
       // Reset the form inputs
@@ -74,13 +75,14 @@ export function DB({ db }) {
       setTitle("");
       setDate("");
       setDescription("");
+      setCContent("");
       setLink("");
       setImage("");
       setTags("");
     } else {
-      popRef.current.open();
+      popupInvalid.current.open();
       setTimeout(() => {
-        popRef.current.close();
+        popupInvalid.current.close();
       }, 1500);
     }
   };
@@ -91,16 +93,16 @@ export function DB({ db }) {
       author,
       content: Qcontent,
     };
-    if ((author !== "" && Qcontent !== "") || process.env.REACT_APP_FB_INPUTKEY === undefined) {
+    if (author !== "" && Qcontent !== "" && process.env.REACT_APP_FB_INPUTKEY !== undefined) {
       submitQuote(quoteData);
 
       // Reset the form inputs
       setAuthor("");
-      setCContent("");
+      setQContent("");
     } else {
-      popRef.current.open();
+      popupInvalid.current.open();
       setTimeout(() => {
-        popRef.current.close();
+        popupInvalid.current.close();
       }, 1500);
     }
   };
@@ -277,10 +279,17 @@ export function DB({ db }) {
             </tr>
           </tbody>
         </table>
-        <Popup ref={popRef} modal>
+        <Popup ref={popupInvalid} modal>
           {(close) => (
             <div className="popup">
-              <p>invalid input</p>
+              <p className="failure">invalid input</p>
+            </div>
+          )}
+        </Popup>
+        <Popup ref={popupSuccess} modal>
+          {(close) => (
+            <div className="popup">
+              <p className="success">new item added</p>
             </div>
           )}
         </Popup>
