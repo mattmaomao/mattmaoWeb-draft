@@ -2,31 +2,39 @@ import React from "react";
 import { useEffect, useState } from "react";
 import { getDocs } from "firebase/firestore";
 
+import RefreshIcon from "../icons/refresh.svg";
 import "../styles/About.css";
 
 export function About({ colRef }) {
   const [quote, setQuote] = useState("");
+  const [quoteContent, setQuoteContent] = useState("");
+
   useEffect(() => {
+    anotherQuote();
+  }, [colRef]);
+
+  // get random quote from collection
+  const anotherQuote = () => {
     getDocs(colRef).then((snap) => {
       const quotes = snap.docs;
       const rand = Math.floor(Math.random() * quotes.length);
       setQuote(quotes[rand].data());
     });
-  }, [colRef]);
+  };
 
   // set format of next line
-  const getQuote = () => {
+  useEffect(() => {
     if (quote.content) {
       const temp = quote.content.split("\\n");
       const str = temp.map((line, index) => (
-        <React.Fragment key={index}>
+        <p className="content" key={index}>
           {line}
           <br />
-        </React.Fragment>
+        </p>
       ));
-      return str;
+      setQuoteContent(str);
     }
-  };
+  }, [quote]);
 
   return (
     <>
@@ -59,24 +67,24 @@ export function About({ colRef }) {
         </div>
         {/* quote of the day */}
         <div className="quote-of-the-day">
-          <h3>Quote of the day:</h3>
-          <p className="content">{getQuote()}</p>
+          <div className="quote-title">
+            <h3>Quote of the day:</h3>
+            <button onClick={() => anotherQuote()}><img src={RefreshIcon} alt="" /></button>
+          </div>
+
+          {quoteContent}
           <p className="author">- {quote.author}</p>
         </div>
         <div className="newQuote">
-          <input type="checkbox" id="showForm" />
           <p>
             Want to show your own quote?{" "}
-            <label htmlFor="showForm">Click me</label>
+            <a
+              href="https://forms.gle/NX57rRUukQGc5L3F6"
+              rel="noreferrer"
+              target="_blank">
+              <span htmlFor="showForm">Submit one in google form!</span>
+            </a>
           </p>
-
-          <iframe
-            title="google form"
-            src="https://docs.google.com/forms/d/e/1FAIpQLSc1ezBnG5uCTn4JmX8Ra9Kdy_rcwngxcYYk6CEvQseH2vX2ow/viewform?embedded=true"
-            width="640"
-            height="500">
-            Loading...
-          </iframe>
         </div>
       </div>
     </>

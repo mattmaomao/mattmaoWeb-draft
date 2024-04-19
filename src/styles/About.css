@@ -54,25 +54,25 @@
   margin-left: 32px;
   font-weight: bold;
 }
+.quote-title {
+  display: flex;
+}
+.quote-title button {
+  width: fit-content;
+  background-color: transparent;
+  cursor: pointer;
+  padding: 4px;
+  margin-left: 8px;
+}
+
 .newQuote {
   margin: 16px;
 }
 .newQuote p {
   margin: 8px;
 }
-.newQuote label {
+.newQuote span {
   text-decoration: underline;
   color: rgb(26, 115, 232);
   cursor: pointer;
-}
-
-.newQuote input {
-  display: none;
-}
-.newQuote iframe {
-    font: normal;
-  display: none;
-}
-.newQuote input:checked ~iframe{
-  display: block;
 }
