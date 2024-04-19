@@ -1,0 +1,7 @@
+.title-btn {
+    background-color:  transparent;
+    text-align: left;
+    text-decoration: underline;
+    cursor: pointer;
+    width: fit-content;
+}

@@ -1,7 +1,4 @@
-import { Link } from "react-router-dom";
-import { setCurrThing } from "./GlobalVarible";
-
-export function ItemBlock({ id, title, link, image, date, tag, description, itemType }) {
+export function ItemBlock({ id, title, link, image, date, tag, description, itemType, viewItem }) {
   // set the link for detailed page/ external link
   const setLink = () => {
     if (link) {
@@ -12,9 +9,9 @@ export function ItemBlock({ id, title, link, image, date, tag, description, item
       );
     } else {
       return (
-        <Link to={`/mattmaoWeb/ThingDetail/${itemType}/${id}`} onClick={setCurrThing("")} className="title">
+        <button onClick={() => viewItem([itemType, id])} className="title title-btn">
           <strong>{title}</strong>
-        </Link>
+        </button>
       );
     }
   };

@@ -1,10 +1,9 @@
-import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 
-import { getCurrThing, setCurrThing } from "./GlobalVarible";
 import { SecretInput } from "../components/SecretInput";
 
-export function Header() {
+export function Header({setPage}) {
+  const [currThing, setCurrThing] =useState("");
   //set content container height
   useEffect(() => {
     const bannerHeight = document.getElementById("banner").offsetHeight;
@@ -15,7 +14,7 @@ export function Header() {
 
     const container = document.getElementById("content-container");
     container.style.minHeight = minHeight.toString() + "px";
-  }, []);
+  });
   // set nav bar z-index to top
   useEffect(() => {
     const navBar = document.getElementById("nav-bar");
@@ -30,54 +29,22 @@ export function Header() {
   useEffect(() => {
     const ThingsTab = document.getElementById("Things");
     ThingsTab.innerText =
-      getCurrThing() === "" ? "Things" : "Things => " + getCurrThing();
-  }, [getCurrThing()]);
-
-  const navigate = useNavigate();
+      currThing === "" ? "Things" : "Things => " + currThing;
+  }, [currThing]);
 
   // change content page component
   function changeContent(content) {
     setCurrThing("");
-    switch (content) {
-      case "/":
-        navigate("/mattmaoWeb");
-        break;
-      case "/Drawings":
-        navigate("/mattmaoWeb/Drawings");
-        break;
-      case "/Games":
-        navigate("/mattmaoWeb/Games");
-        break;
-      case "/Stories":
-        navigate("/mattmaoWeb/Stories");
-        break;
-      case "/DevLogs":
-        navigate("/mattmaoWeb/DevLogs");
-        break;
-      case "/ThingDetail":
-        navigate("/mattmaoWeb/ThingDetail");
-        break;
-      case "/Help":
-        navigate("/mattmaoWeb/Help");
-        break;
-      case "/About":
-        navigate("/mattmaoWeb/About");
-        break;
-      case "/Database":
-        navigate("/mattmaoWeb/Database");
-        break;
-      default:
-        break;
-    }
+    setPage(content);
   }
 
   // open database
   const openDBFunc = () => {
-    changeContent("/Database");
+    changeContent("Database");
   };
   const openDB = SecretInput(process.env.REACT_APP_FB_INPUTKEY, openDBFunc);
   const closeDBFunc = () => {
-    changeContent("/");
+    changeContent("Home");
   };
   const closeDB = SecretInput("byedatabase", closeDBFunc);
 
@@ -105,7 +72,7 @@ export function Header() {
         <button
           className="nav-item button"
           onClick={() => {
-            changeContent("/");
+            changeContent("Home");
             changeTitle("");
           }}>
           Home
@@ -120,7 +87,7 @@ export function Header() {
                 <button
                   className="button"
                   onClick={() => {
-                    changeContent("/Drawings");
+                    changeContent("Drawings");
                     changeTitle("Drawings");
                   }}>
                   Drawings
@@ -130,7 +97,7 @@ export function Header() {
                 <button
                   className="button"
                   onClick={() => {
-                    changeContent("/Games");
+                    changeContent("Games");
                     changeTitle("Games");
                   }}>
                   Games
@@ -140,7 +107,7 @@ export function Header() {
                 <button
                   className="button"
                   onClick={() => {
-                    changeContent("/Stories");
+                    changeContent("Stories");
                     changeTitle("Stories");
                   }}>
                   Stories
@@ -150,7 +117,7 @@ export function Header() {
                 <button
                   className="button"
                   onClick={() => {
-                    changeContent("/DevLogs");
+                    changeContent("DevLogs");
                     changeTitle("Dev Logs");
                   }}>
                   Dev Logs
@@ -163,7 +130,7 @@ export function Header() {
         <button
           className="nav-item button"
           onClick={() => {
-            changeContent("/About");
+            changeContent("About");
             changeTitle("");
           }}>
           About
@@ -172,7 +139,7 @@ export function Header() {
         <button
           className="nav-item button"
           onClick={() => {
-            changeContent("/Help");
+            changeContent("Help");
             changeTitle("");
           }}>
           Help

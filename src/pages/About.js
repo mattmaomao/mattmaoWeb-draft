@@ -2,9 +2,6 @@ import React from "react";
 import { useEffect, useState } from "react";
 import { getDocs } from "firebase/firestore";
 
-import { Header } from "../components/Header";
-import { Footer } from "../components/Footer";
-
 import "../styles/About.css";
 
 export function About({ colRef }) {
@@ -33,8 +30,6 @@ export function About({ colRef }) {
 
   return (
     <>
-      <Header />
-
       {/* content container display selected section */}
       <div className="content-container" id="content-container">
         <div className="short-info">
@@ -84,9 +79,6 @@ export function About({ colRef }) {
           </iframe>
         </div>
       </div>
-
-      {/* footer */}
-      <Footer />
     </>
   );
 }

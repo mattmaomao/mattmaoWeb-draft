@@ -2,8 +2,6 @@ import { useState, useRef } from "react";
 import { Popup } from "reactjs-popup";
 import { addDoc, collection } from "firebase/firestore";
 
-import { Header } from "../components/Header";
-import { Footer } from "../components/Footer";
 import "../styles/DB.css";
 
 export function DB({ db }) {
@@ -67,7 +65,13 @@ export function DB({ db }) {
     };
     for (let key in formData) if (formData[key] === "") delete formData[key];
 
-    if (topic !== "" && title !== "" && date !== "" && description !== "" && process.env.REACT_APP_FB_INPUTKEY !== undefined) {
+    if (
+      topic !== "" &&
+      title !== "" &&
+      date !== "" &&
+      description !== "" &&
+      process.env.REACT_APP_FB_INPUTKEY !== undefined
+    ) {
       submitForm(topic, formData);
 
       // Reset the form inputs
@@ -93,7 +97,11 @@ export function DB({ db }) {
       author,
       content: Qcontent,
     };
-    if (author !== "" && Qcontent !== "" && process.env.REACT_APP_FB_INPUTKEY !== undefined) {
+    if (
+      author !== "" &&
+      Qcontent !== "" &&
+      process.env.REACT_APP_FB_INPUTKEY !== undefined
+    ) {
       submitQuote(quoteData);
 
       // Reset the form inputs
@@ -119,8 +127,6 @@ export function DB({ db }) {
 
   return (
     <>
-      <Header />
-
       {/* content container display selected section */}
       <div className="content-container" id="content-container">
         <table className="DB_Table">
@@ -294,9 +300,6 @@ export function DB({ db }) {
           )}
         </Popup>
       </div>
-
-      {/* footer */}
-      <Footer />
     </>
   );
 }

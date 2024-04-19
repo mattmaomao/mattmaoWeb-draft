@@ -1,4 +1,3 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { collection } from "firebase/firestore";
 
 import { Home } from "./Home";
@@ -9,60 +8,86 @@ import { About } from "./About";
 import { Help } from "./Help";
 import { DB } from "./DB";
 
+import { Header } from "../components/Header";
+import { Footer } from "../components/Footer";
+
 import "../styles/landing.css";
+import { useEffect, useState } from "react";
 
 export function Landing({ db }) {
+  const [page, setPage] = useState("Home");
+  const [comp, setComp] = useState(<Home />);
+  const [itemInfo, setItemInfo] = useState("");
+
+  const viewItem = (info) => {
+    setItemInfo(info);
+    setPage("ThingDetail");
+  }
+
+  useEffect(() => {
+    switch (page) {
+      case "Home":
+        setComp(<Home />);
+        break;
+      case "Drawings":
+        setComp(
+          <ThingsInBlock
+            viewItem={viewItem}
+            itemType={"Drawings"}
+            colRef={collection(db, "Drawings")}
+          />
+        );
+        break;
+      case "Games":
+        setComp(
+          <ThingsInBlock
+            viewItem={viewItem}
+            itemType={"Games"}
+            colRef={collection(db, "Games")}
+          />
+        );
+        break;
+      case "Stories":
+        setComp(
+          <ThingsInBar
+            viewItem={viewItem}
+            itemType={"Stories"}
+            colRef={collection(db, "Stories")}
+          />
+        );
+        break;
+      case "DevLogs":
+        setComp(
+          <ThingsInBar
+            viewItem={viewItem}
+            itemType={"DevLogs"}
+            colRef={collection(db, "DevLogs")}
+          />
+        );
+        break;
+      case "ThingDetail":
+        setComp(<ThingDetail db={db} itemType={itemInfo[0]} itemID={itemInfo[1]} />);
+        break;
+      case "About":
+        setComp(<About colRef={collection(db, "Quotes")} />);
+        break;
+      case "Help":
+        setComp(<Help />);
+        break;
+      case "Database":
+        setComp(<DB db={db} />);
+        break;
+      default:
+        setComp(<Home />);
+        break;
+    }
+  }, [page, db]);
+
   return (
     <>
-      <Routes>
-        <Route path="/mattmaoWeb" element={<Home />} />
-        <Route
-          path="/mattmaoWeb/Drawings"
-          element={
-            <ThingsInBlock
-              itemType={"Drawings"}
-              colRef={collection(db, "Drawings")}
-            />
-          }
-        />
-        <Route
-          path="/mattmaoWeb/Games"
-          element={
-            <ThingsInBlock
-              itemType={"Games"}
-              colRef={collection(db, "Games")}
-            />
-          }
-        />
-        <Route
-          path="/mattmaoWeb/Stories"
-          element={
-            <ThingsInBar
-              itemType={"Stories"}
-              colRef={collection(db, "Stories")}
-            />
-          }
-        />
-        <Route
-          path="/mattmaoWeb/DevLogs"
-          element={
-            <ThingsInBar
-              itemType={"DevLogs"}
-              colRef={collection(db, "DevLogs")}
-            />
-          }
-        />
-        <Route
-          path="/mattmaoWeb/ThingDetail/:itemType/:itemID"
-          element={<ThingDetail db={db} />}
-        />
-        <Route
-          path="/mattmaoWeb/About"
-          element={<About colRef={collection(db, "Quotes")} />}
-        />
-        <Route path="/mattmaoWeb/Help" element={<Help />} />
-        <Route path="/mattmaoWeb/Database" element={<DB db={db} />} />
-      </Routes>
+      <Header setPage={setPage} />
+      {comp}
+      <Footer />
     </>
   );
 }

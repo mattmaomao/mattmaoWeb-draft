@@ -1,16 +1,10 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
 import { getDoc, doc } from "firebase/firestore";
-
-import { Header } from "../components/Header";
-import { Footer } from "../components/Footer";
 
 import "../styles/ThingDetail.css";
 
-export function ThingDetail({ db }) {
-  const { itemID } = useParams();
-  const { itemType } = useParams();
+export function ThingDetail({ db, itemType, itemID }) {
   const [item, setItem] = useState();
 
   // fetch single data of this product
@@ -37,8 +31,6 @@ export function ThingDetail({ db }) {
 
   return (
     <>
-      <Header />
-
       {/* content container display selected section */}
       <div className="content-container" id="content-container">
         <div className="detailed">
@@ -52,9 +44,6 @@ export function ThingDetail({ db }) {
           <p className="content">{getContent()}</p>
         </div>
       </div>
-
-      {/* footer */}
-      <Footer />
     </>
   );
 }

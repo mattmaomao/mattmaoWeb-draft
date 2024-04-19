@@ -1,14 +1,13 @@
 import { useState, useEffect } from "react";
 import { getDocs } from "firebase/firestore";
 
-import { Header } from "../components/Header";
-import { Footer } from "../components/Footer";
 import { ItemBar } from "../components/ItemBar";
 import { SortFilterBar } from "../components/SortFilterBar";
 
-import "../styles/bar-grid.css";
+import "../styles/grid/grid.css";
+import "../styles/grid/bar-grid.css";
 
-export function ThingsInBar({ itemType, colRef }) {
+export function ThingsInBar({ itemType, colRef, viewItem }) {
   const [database, setDatabase] = useState([]);
   const [itemList, setItemList] = useState([]);
   const [sortMethod, setSortList] = useState("");
@@ -119,8 +118,6 @@ export function ThingsInBar({ itemType, colRef }) {
 
   return (
     <>
-      <Header />
-
       {/* content container display selected section */}
       <div className="content-container" id="content-container">
         {/* sort and filter */}
@@ -148,14 +145,11 @@ export function ThingsInBar({ itemType, colRef }) {
           {itemList
             .map((item, index) => {
               // receive and return according to item
-              return <ItemBar {...item} itemType={itemType} key={index} />;
+              return <ItemBar {...item} itemType={itemType} viewItem={viewItem} key={index} />;
             })
             .slice(maxItemPerPage * currPage, maxItemPerPage * (currPage + 1))}
         </div>
       </div>
-
-      {/* footer */}
-      <Footer />
     </>
   );
 }
