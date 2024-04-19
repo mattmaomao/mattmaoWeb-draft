@@ -1,13 +1,13 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
+import React from "react";
+import ReactDOM from "react-dom/client";
 import { Landing } from "./pages/Landing";
-import reportWebVitals from './reportWebVitals';
-import "./styles/style.css"
+import reportWebVitals from "./reportWebVitals";
+import "./styles/style.css";
 
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-// import { getAnalytics } from "firebase/analytics";
 import { getFirestore } from "firebase/firestore";
+import { BrowserRouter as Router } from "react-router-dom";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -25,14 +25,15 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-// const analytics = getAnalytics(app);
 const db = getFirestore();
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <React.StrictMode>
-    <Landing db={db} />
-  </React.StrictMode>
+  // <React.StrictMode>
+    <Router>
+      <Landing db={db} />
+    </Router>
+  // </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function
