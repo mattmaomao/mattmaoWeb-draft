@@ -7,13 +7,14 @@ import "./styles/style.css";
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
+import { getAuth } from "firebase/auth";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  // apiKey: process.env.REACT_APP_FB_API,
+  apiKey: process.env.REACT_APP_FB_API,
   // authDomain: "mattmaoweb.firebaseapp.com",
   projectId: "mattmaoweb",
   // storageBucket: "mattmaoweb.appspot.com",
@@ -25,11 +26,12 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const db = getFirestore();
+const auth = getAuth();
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-      <Landing db={db} />
+      <Landing db={db} auth={auth} />
   </React.StrictMode>
 );
 

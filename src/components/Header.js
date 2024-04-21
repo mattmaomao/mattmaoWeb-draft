@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 import { SecretInput } from "../components/SecretInput";
 
-export function Header({setPage}) {
+export function Header({auth, setPage}) {
   const [currThing, setCurrThing] =useState("");
   //set content container height
   useEffect(() => {
@@ -39,14 +39,20 @@ export function Header({setPage}) {
   }
 
   // open database
-  const openDBFunc = () => {
+  const openDBPage = () => {
     changeContent("Database");
   };
-  const openDB = SecretInput(process.env.REACT_APP_FB_INPUTKEY, openDBFunc);
-  const closeDBFunc = () => {
+  const openDB = SecretInput(process.env.REACT_APP_FB_INPUTKEY, openDBPage);
+  const goHome = () => {
     changeContent("Home");
   };
-  const closeDB = SecretInput("byedatabase", closeDBFunc);
+  const closeDB = SecretInput("gohome", goHome);
+
+  // manage user
+  const openUserPage = () => {
+    changeContent("User");
+  };
+  const openUser = SecretInput("gouser", openUserPage);
 
   return (
     <>
