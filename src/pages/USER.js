@@ -1,10 +1,11 @@
 import { useState, useRef } from "react";
 import { Popup } from "reactjs-popup";
+import { doc, setDoc } from "firebase/firestore";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
-  onAuthStateChanged
+  onAuthStateChanged,
 } from "firebase/auth";
 
 import "../styles/USER.css";
@@ -52,9 +53,8 @@ export function USER({ db, auth }) {
   };
 
   onAuthStateChanged(auth, (user) => {
-    if (user)
-      setUserState("Sign Out");
-  })
+    if (user) setUserState("Sign Out");
+  });
 
   const submitUser = (userData) => {
     // todo
@@ -66,12 +66,9 @@ export function USER({ db, auth }) {
             // Reset the form inputs
             setEmail("");
             setPw("");
-
-            // setUserState("Sign Out");
           })
           .catch((e) => {
-            console.log(e);
-            showPopup(popupInvalid, "Invalid Input!");
+            showPopup(popupInvalid, e.message);
           });
 
         break;
@@ -87,23 +84,35 @@ export function USER({ db, auth }) {
             setUserState("Sign In");
           })
           .catch((e) => {
-            console.log(e);
+            showPopup(popupInvalid, e.message);
           });
         break;
 
       case "Sign Up":
         createUserWithEmailAndPassword(auth, userData.email, userData.pw)
           .then((cred) => {
+            // add user to Users collection
+            const itemRef = doc(db, "Users", cred.user.uid);
+            setDoc(
+              itemRef,
+              {
+                username: userData.username,
+              },
+              { merge: true }
+            ).catch((e) => {
+              console.log(e);
+            });
+
             showPopup(popupSuccess, "sign up success");
             // Reset the form inputs
+            setUsername("");
             setEmail("");
             setPw("");
 
             setUserState("Sign In");
           })
           .catch((e) => {
-            console.log(e);
-            showPopup(popupInvalid, "Invalid Input!");
+            showPopup(popupInvalid, e.message);
           });
         break;
 

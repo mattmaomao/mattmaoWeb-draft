@@ -17,8 +17,17 @@ export function DB({ db }) {
   const [author, setAuthor] = useState("");
   const [Qcontent, setQContent] = useState("");
 
+  const [popMsg, setPopMsg] = useState("");
   const popupInvalid = useRef();
   const popupSuccess = useRef();
+  // input popup ref, display msg
+  const showPopup = (pop, msg) => {
+    pop.current.open();
+    setTimeout(() => {
+      pop.current.close();
+    }, 1500);
+    setPopMsg(msg);
+  };
 
   const handleTopicChange = (event) => {
     setTopic(event.target.value);
@@ -73,21 +82,8 @@ export function DB({ db }) {
       process.env.REACT_APP_FB_INPUTKEY !== undefined
     ) {
       submitForm(topic, formData);
-
-      // Reset the form inputs
-      setTopic("");
-      setTitle("");
-      setDate("");
-      setDescription("");
-      setCContent("");
-      setLink("");
-      setImage("");
-      setTags("");
     } else {
-      popupInvalid.current.open();
-      setTimeout(() => {
-        popupInvalid.current.close();
-      }, 1500);
+      showPopup(popupInvalid, "invalid input");
     }
   };
   const handleSubmitQuote = (event) => {
@@ -103,26 +99,43 @@ export function DB({ db }) {
       process.env.REACT_APP_FB_INPUTKEY !== undefined
     ) {
       submitQuote(quoteData);
-
-      // Reset the form inputs
-      setAuthor("");
-      setQContent("");
     } else {
-      popupInvalid.current.open();
-      setTimeout(() => {
-        popupInvalid.current.close();
-      }, 1500);
+      showPopup(popupInvalid, "invalid input");
     }
   };
 
   const submitForm = (topic, formData) => {
     console.log("Submitting form:", formData);
     const colRef = collection(db, topic);
-    addDoc(colRef, formData);
+    addDoc(colRef, formData)
+      .then(() => {
+        showPopup(popupSuccess, "added new content");
+        // Reset the form inputs
+        setTopic("");
+        setTitle("");
+        setDate("");
+        setDescription("");
+        setCContent("");
+        setLink("");
+        setImage("");
+        setTags("");
+      })
+      .catch((e) => {
+        showPopup(popupInvalid, e.message);
+      });
   };
   const submitQuote = (quoteData) => {
     const colRef = collection(db, "Quotes");
-    addDoc(colRef, quoteData);
+    addDoc(colRef, quoteData)
+      .then(() => {
+        showPopup(popupSuccess, "added new quote");
+        // Reset the form inputs
+        setAuthor("");
+        setQContent("");
+      })
+      .catch((e) => {
+        showPopup(popupInvalid, e.message);
+      });
   };
 
   return (
@@ -288,14 +301,14 @@ export function DB({ db }) {
         <Popup ref={popupInvalid} modal>
           {(close) => (
             <div className="popup">
-              <p className="failure">invalid input</p>
+              <p className="failure">{popMsg}</p>
             </div>
           )}
         </Popup>
         <Popup ref={popupSuccess} modal>
           {(close) => (
             <div className="popup">
-              <p className="success">new item added</p>
+              <p className="success">{popMsg}</p>
             </div>
           )}
         </Popup>
