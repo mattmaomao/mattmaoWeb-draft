@@ -1,16 +1,27 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Popup } from "reactjs-popup";
-import { doc, setDoc } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  getDocs,
+  query,
+  setDoc,
+  where,
+} from "firebase/firestore";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
   onAuthStateChanged,
+  sendEmailVerification,
 } from "firebase/auth";
 
-import "../styles/USER.css";
+import { db, auth } from "../index";
+import { UserSignInUpForm } from "../components/user/UserSignInUpForm";
+import { UserInfo } from "../components/user/UserInfo";
+import "../styles/user/USER.css";
 
-export function USER({ db, auth }) {
+export function USER() {
   const [userState, setUserState] = useState("Sign Up");
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -24,7 +35,7 @@ export function USER({ db, auth }) {
     pop.current.open();
     setTimeout(() => {
       pop.current.close();
-    }, 1500);
+    }, 2000);
     setPopMsg(msg);
   };
 
@@ -45,27 +56,52 @@ export function USER({ db, auth }) {
       email,
       pw,
     };
-    if ((email !== "" && pw !== "") || userState === "Sign Out") {
-      submitUser(userData);
-    } else {
-      showPopup(popupInvalid, "Invalid Input!");
-    }
+    if (userState !== "Sign Out") submitUser(userData);
   };
 
-  onAuthStateChanged(auth, (user) => {
-    if (user) setUserState("Sign Out");
-  });
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) setUserState("Sign Out");
+    });
+  }, [auth]);
 
-  const submitUser = (userData) => {
-    // todo
+  // Reset the form inputs
+  const resetForm = () => {
+    setUsername("");
+    setEmail("");
+    setPw("");
+  };
+
+  const submitUser = async (userData) => {
     switch (userState) {
       case "Sign In":
-        signInWithEmailAndPassword(auth, userData.email, userData.pw)
+        if (userData.username === "" || userData.pw === "") {
+          showPopup(popupInvalid, "Invalid Input!");
+          return;
+        }
+
+        // get email with username input
+        const q = query(
+          collection(db, "Users"),
+          where("username", "==", userData.username)
+        );
+        const snapshot = await getDocs(q);
+        var item;
+        snapshot.forEach((doc) => {
+          item = doc.data();
+        });
+
+        signInWithEmailAndPassword(auth, item.email, userData.pw)
           .then((cred) => {
-            showPopup(popupSuccess, "sign up success");
-            // Reset the form inputs
-            setEmail("");
-            setPw("");
+            if (cred.user.emailVerified) {
+              showPopup(popupSuccess, "sign up success");
+              // Reset the form inputs
+              resetForm();
+            } else {
+              signOut(auth);
+              showPopup(popupInvalid, "please verfy your email first!");
+              setUserState("Sign In");
+            }
           })
           .catch((e) => {
             showPopup(popupInvalid, e.message);
@@ -78,8 +114,7 @@ export function USER({ db, auth }) {
           .then(() => {
             showPopup(popupSuccess, "sign out success");
             // Reset the form inputs
-            setEmail("");
-            setPw("");
+            resetForm();
 
             setUserState("Sign In");
           })
@@ -89,25 +124,46 @@ export function USER({ db, auth }) {
         break;
 
       case "Sign Up":
+        if (
+          userData.username === "" ||
+          userData.email === "" ||
+          userData.pw === ""
+        ) {
+          showPopup(popupInvalid, "Invalid Input!");
+          return;
+        }
         createUserWithEmailAndPassword(auth, userData.email, userData.pw)
           .then((cred) => {
+            // set diaplay name as username
+            cred.user.displayName = userData.username;
             // add user to Users collection
             const itemRef = doc(db, "Users", cred.user.uid);
             setDoc(
               itemRef,
               {
                 username: userData.username,
+                email: cred.user.email,
+                frd: "normal"
               },
               { merge: true }
             ).catch((e) => {
-              console.log(e);
+              showPopup(popupInvalid, e.message);
             });
 
             showPopup(popupSuccess, "sign up success");
+
+            // ask new user to verify email
+            sendEmailVerification(cred.user)
+              .then(() => {
+                showPopup(popupSuccess, "please verify your email");
+                signOut(auth);
+              })
+              .catch((e) => {
+                showPopup(popupInvalid, e.message);
+              });
+
             // Reset the form inputs
-            setUsername("");
-            setEmail("");
-            setPw("");
+            resetForm();
 
             setUserState("Sign In");
           })
@@ -126,67 +182,28 @@ export function USER({ db, auth }) {
       {/* content container display selected section */}
       <div className="content-container" id="content-container">
         {/* sign in form */}
-        <table className="USER_Table">
-          <tbody>
-            <tr>
-              <th colSpan={2} className="title">
-                <button
-                  onClick={() => {
-                    if (userState !== "Sign Out") setUserState("Sign In");
-                  }}>
-                  Sign In
-                </button>{" "}
-                /{" "}
-                <button
-                  onClick={() => {
-                    if (userState !== "Sign Out") setUserState("Sign Up");
-                  }}>
-                  Sign Up
-                </button>
-              </th>
-            </tr>
-            <tr>
-              <th>Username:</th>
-              <td>
-                <input
-                  type="text"
-                  placeholder="username"
-                  value={username}
-                  onChange={handleUsernameChange}
-                />
-              </td>
-            </tr>
-            <tr>
-              <th>Email:</th>
-              <td>
-                <input
-                  type="text"
-                  placeholder="email"
-                  value={email}
-                  onChange={handleEmailChange}
-                />
-              </td>
-            </tr>
-            <tr>
-              <th>Password:</th>
-              <td>
-                <input
-                  type="text"
-                  placeholder="password"
-                  value={pw}
-                  onChange={handlePasswordChange}
-                />
-              </td>
-            </tr>
-            <tr>
-              <th colSpan={2} className="submitBtn">
-                <button type="submit" onClick={handleSubmitUserData}>
-                  {userState}
-                </button>
-              </th>
-            </tr>
-          </tbody>
-        </table>
+        {userState === "Sign Out" ? (
+          <>
+            <UserInfo />
+          </>
+        ) : (
+          <UserSignInUpForm
+            userState={userState}
+            setUserState={setUserState}
+            username={username}
+            email={email}
+            pw={pw}
+            handleUsernameChange={handleUsernameChange}
+            handleEmailChange={handleEmailChange}
+            handlePasswordChange={handlePasswordChange}
+          />
+        )}
+        {/* submit button */}
+        <div className="submitBtn">
+          <button type="submit" onClick={handleSubmitUserData}>
+            {userState}
+          </button>
+        </div>
         <Popup ref={popupInvalid} modal>
           {(close) => (
             <div className="popup">

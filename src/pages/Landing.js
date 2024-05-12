@@ -68,7 +68,7 @@ export function Landing({ db, auth }) {
         break;
       case "ThingDetail":
         setComp(
-          <ThingDetail db={db} itemType={itemInfo[0]} itemID={itemInfo[1]} />
+          <ThingDetail itemType={itemInfo[0]} itemID={itemInfo[1]} />
         );
         break;
       case "About":
@@ -79,10 +79,10 @@ export function Landing({ db, auth }) {
         break;
       // secret
       case "Database":
-        setComp(<DB db={db} />);
+        setComp(<DB />);
         break;
       case "User":
-        setComp(<USER db={db} auth={auth} />);
+        setComp(<USER />);
         break;
       default:
         setComp(<Home />);
@@ -92,7 +92,7 @@ export function Landing({ db, auth }) {
 
   return (
     <>
-      <Header auth={auth} setPage={setPage} />
+      <Header setPage={setPage} />
       {comp}
       <Footer />
     </>

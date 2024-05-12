@@ -2,9 +2,10 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { getDoc, doc } from "firebase/firestore";
 
+import { db } from "../index";
 import "../styles/ThingDetail.css";
 
-export function ThingDetail({ db, itemType, itemID }) {
+export function ThingDetail({ itemType, itemID }) {
   const [item, setItem] = useState();
 
   // fetch single data of this product

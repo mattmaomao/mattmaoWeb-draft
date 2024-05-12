@@ -25,13 +25,13 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const db = getFirestore();
-const auth = getAuth();
+export const db = getFirestore();
+export const auth = getAuth();
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-      <Landing db={db} auth={auth} />
+      <Landing/>
   </React.StrictMode>
 );
 

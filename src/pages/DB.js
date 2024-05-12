@@ -2,9 +2,10 @@ import { useState, useRef } from "react";
 import { Popup } from "reactjs-popup";
 import { addDoc, collection } from "firebase/firestore";
 
+import { db } from "../index";
 import "../styles/DB.css";
 
-export function DB({ db }) {
+export function DB() {
   const [topic, setTopic] = useState("");
   const [title, setTitle] = useState("");
   const [date, setDate] = useState("");

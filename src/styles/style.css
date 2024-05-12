@@ -94,3 +94,15 @@ footer {
 a {
   color: black;
 }
+
+/* sign in option */
+.signin-smolbtn {
+  width: fit-content;
+  font-size: 6px;
+
+  position: absolute;
+  right: 0;
+  bottom: 0;
+
+  background-color: transparent;
+}

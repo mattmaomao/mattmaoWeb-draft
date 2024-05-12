@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 
 import { SecretInput } from "../components/SecretInput";
+import { auth } from "../index";
 
-export function Header({auth, setPage}) {
-  const [currThing, setCurrThing] =useState("");
+export function Header({ setPage }) {
+  const [currThing, setCurrThing] = useState("");
   //set content container height
   useEffect(() => {
     const bannerHeight = document.getElementById("banner").offsetHeight;
@@ -25,7 +26,6 @@ export function Header({auth, setPage}) {
   function changeTitle(title) {
     setCurrThing(title);
   }
-
   useEffect(() => {
     const ThingsTab = document.getElementById("Things");
     ThingsTab.innerText =
@@ -38,6 +38,7 @@ export function Header({auth, setPage}) {
     setPage(content);
   }
 
+  // secret---------------------------------------
   // open database
   const openDBPage = () => {
     changeContent("Database");
@@ -53,6 +54,7 @@ export function Header({auth, setPage}) {
     changeContent("User");
   };
   const openUser = SecretInput("gouser", openUserPage);
+  // secret---------------------------------------
 
   return (
     <>
@@ -71,6 +73,15 @@ export function Header({auth, setPage}) {
       {/* banner */}
       <div className="banner" id="banner">
         banner ~put image here~
+        {/* sneaky button for user to login */}
+        <button
+          className="signin-smolbtn"
+          id="user"
+          onClick={() => {
+            setPage("User");
+          }}>
+          sign in?
+        </button>
       </div>
 
       {/* nav bar */}
