@@ -6,16 +6,17 @@ import { ThingsInBar } from "./ThingsInBar";
 import { ThingDetail } from "./ThingDetail";
 import { About } from "./About";
 import { Help } from "./Help";
-import { DB } from "./DB";
+import { DB } from "./hide/DB";
 import { USER } from "./USER";
 
 import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
 
+import { db } from "../index";
 import "../styles/landing.css";
 import { useEffect, useState } from "react";
 
-export function Landing({ db, auth }) {
+export function Landing() {
   const [page, setPage] = useState("Home");
   const [comp, setComp] = useState(<Home />);
   const [itemInfo, setItemInfo] = useState("");
@@ -67,9 +68,7 @@ export function Landing({ db, auth }) {
         );
         break;
       case "ThingDetail":
-        setComp(
-          <ThingDetail itemType={itemInfo[0]} itemID={itemInfo[1]} />
-        );
+        setComp(<ThingDetail itemType={itemInfo[0]} itemID={itemInfo[1]} />);
         break;
       case "About":
         setComp(<About colRef={collection(db, "Quotes")} />);

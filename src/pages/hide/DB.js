@@ -1,8 +1,9 @@
 import { useState, useRef } from "react";
 import { Popup } from "reactjs-popup";
 import { addDoc, collection } from "firebase/firestore";
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 
-import { db } from "../index";
+import { db, storage } from "../../index";
 import "../styles/DB.css";
 
 export function DB() {
@@ -49,7 +50,7 @@ export function DB() {
     setLink(event.target.value);
   };
   const handleImageChange = (event) => {
-    setImage(event.target.value);
+    setImage(event.target.files[0]);
   };
   const handleTagsChange = (event) => {
     setTags(event.target.value);
@@ -64,17 +65,7 @@ export function DB() {
   const handleSubmitContent = (event) => {
     event.preventDefault();
 
-    const formData = {
-      title,
-      date,
-      description,
-      content: Ccontent,
-      link,
-      image,
-      tag: tag === "" ? [] : tag.split(",").map((i) => i.trim()),
-    };
-    for (let key in formData) if (formData[key] === "") delete formData[key];
-
+    // check if can upload
     if (
       topic !== "" &&
       title !== "" &&
@@ -82,7 +73,7 @@ export function DB() {
       description !== "" &&
       process.env.REACT_APP_FB_INPUTKEY !== undefined
     ) {
-      submitForm(topic, formData);
+      submitForm(topic);
     } else {
       showPopup(popupInvalid, "invalid input");
     }
@@ -105,8 +96,59 @@ export function DB() {
     }
   };
 
-  const submitForm = (topic, formData) => {
+  // handle image upload
+  const uploadImage = async (file, folderName = "uploads", topic) => {
+    // Assuming 'userId' is available and relevant for your use-case
+    const fileRef = ref(storage, `${folderName}/${topic}_${file.name}`);
+
+    const uploadTask = uploadBytesResumable(fileRef, file);
+
+    return new Promise((resolve, reject) => {
+      uploadTask.on(
+        "state_changed",
+        (snapshot) => {
+          // Handle progress
+          const progress =
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          console.log("Upload is " + progress + "% done");
+        },
+        (error) => {
+          // Handle unsuccessful uploads
+          console.error("Upload failed", error);
+          reject(error);
+        },
+        () => {
+          // Handle successful uploads on complete
+          getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+            console.log("File available at", downloadURL);
+            resolve(downloadURL);
+          });
+        }
+      );
+    });
+  };
+
+  const submitForm = async (topic) => {
+    // Upload the cover image first and update the URL
+    var imageLink = "";
+    if (image && image instanceof File) {
+      imageLink = await uploadImage(image, "cover_image", topic);
+    }
+
+    // set form data
+    const formData = {
+      title,
+      date,
+      description,
+      content: Ccontent,
+      link,
+      image: imageLink,
+      tag: tag === "" ? [] : tag.split(",").map((i) => i.trim()),
+    };
+    // clear empty field
+    for (let key in formData) if (formData[key] === "") delete formData[key];
     console.log("Submitting form:", formData);
+
     const colRef = collection(db, topic);
     addDoc(colRef, formData)
       .then(() => {
@@ -229,9 +271,8 @@ export function DB() {
               <th>Image:</th>
               <td>
                 <input
-                  type="text"
-                  value={image}
-                  placeholder="imgName.png &nbsp;(block display image)"
+                  type="file"
+                  // value={image === "" ? "" : image.name}
                   onChange={handleImageChange}
                 />
               </td>

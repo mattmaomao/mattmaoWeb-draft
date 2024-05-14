@@ -8,6 +8,7 @@ import "./styles/style.css";
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
+import { getStorage } from "firebase/storage";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -17,7 +18,7 @@ const firebaseConfig = {
   apiKey: process.env.REACT_APP_FB_API,
   // authDomain: "mattmaoweb.firebaseapp.com",
   projectId: "mattmaoweb",
-  // storageBucket: "mattmaoweb.appspot.com",
+  storageBucket: "mattmaoweb.appspot.com",
   // messagingSenderId: process.env.REACT_APP_FB_MESSAGINGSENDERID,
   // appId: process.env.REACT_APP_FB_APPID,
   // measurementId: process.env.REACT_APP_FB_MEASUREMENTID,
@@ -27,6 +28,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 export const db = getFirestore();
 export const auth = getAuth();
+export const storage = getStorage(app);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
