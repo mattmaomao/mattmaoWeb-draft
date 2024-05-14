@@ -4,7 +4,7 @@ import { addDoc, collection } from "firebase/firestore";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 
 import { db, storage } from "../../index";
-import "../styles/DB.css";
+import "../../styles/DB.css";
 
 export function DB() {
   const [topic, setTopic] = useState("");

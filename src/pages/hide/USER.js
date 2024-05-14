@@ -16,10 +16,10 @@ import {
   sendEmailVerification,
 } from "firebase/auth";
 
-import { db, auth } from "../index";
-import { UserSignInUpForm } from "../components/user/UserSignInUpForm";
-import { UserInfo } from "../components/user/UserInfo";
-import "../styles/user/USER.css";
+import { db, auth } from "../../index";
+import { UserSignInUpForm } from "../../components/user/UserSignInUpForm";
+import { UserInfo } from "../../components/user/UserInfo";
+import "../../styles/user/USER.css";
 
 export function USER() {
   const [userState, setUserState] = useState("Sign Up");
