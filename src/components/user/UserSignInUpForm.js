@@ -21,13 +21,14 @@ export function UserSignInUpForm ({
                 }}>
                 Sign In
               </button>{" "}
-              /{" "}
+              {/* disabled */}
+              {/* /{" "}
               <button
                 onClick={() => {
                   if (userState !== "Sign Out") setUserState("Sign Up");
                 }}>
                 Sign Up
-              </button>
+              </button> */}
             </th>
           </tr>
           <tr>

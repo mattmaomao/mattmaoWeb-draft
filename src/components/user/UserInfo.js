@@ -37,11 +37,6 @@ export function UserInfo() {
             <th>frd? </th>
             <td>{userInfo?.frd}</td>
           </tr>
-          {/* email */}
-          <tr>
-            <th>email:</th>
-            <td>{userInfo?.email}</td>
-          </tr>
         </tbody>
       </table>
     </>

@@ -56,7 +56,7 @@ export function USER() {
       email,
       pw,
     };
-    if (userState !== "Sign Out") submitUser(userData);
+    submitUser(userData);
   };
 
   useEffect(() => {
@@ -123,53 +123,54 @@ export function USER() {
           });
         break;
 
+      // disabled
       case "Sign Up":
-        if (
-          userData.username === "" ||
-          userData.email === "" ||
-          userData.pw === ""
-        ) {
-          showPopup(popupInvalid, "Invalid Input!");
-          return;
-        }
-        createUserWithEmailAndPassword(auth, userData.email, userData.pw)
-          .then((cred) => {
-            // set diaplay name as username
-            cred.user.displayName = userData.username;
-            // add user to Users collection
-            const itemRef = doc(db, "Users", cred.user.uid);
-            setDoc(
-              itemRef,
-              {
-                username: userData.username,
-                email: cred.user.email,
-                frd: "normal"
-              },
-              { merge: true }
-            ).catch((e) => {
-              showPopup(popupInvalid, e.message);
-            });
+        // if (
+        //   userData.username === "" ||
+        //   userData.email === "" ||
+        //   userData.pw === ""
+        // ) {
+        //   showPopup(popupInvalid, "Invalid Input!");
+        //   return;
+        // }
+        // createUserWithEmailAndPassword(auth, userData.email, userData.pw)
+        //   .then((cred) => {
+        //     // set diaplay name as username
+        //     cred.user.displayName = userData.username;
+        //     // add user to Users collection
+        //     const itemRef = doc(db, "Users", cred.user.uid);
+        //     setDoc(
+        //       itemRef,
+        //       {
+        //         username: userData.username,
+        //         email: cred.user.email,
+        //         frd: "normal"
+        //       },
+        //       { merge: true }
+        //     ).catch((e) => {
+        //       showPopup(popupInvalid, e.message);
+        //     });
 
-            showPopup(popupSuccess, "sign up success");
+        //     showPopup(popupSuccess, "sign up success");
 
-            // ask new user to verify email
-            sendEmailVerification(cred.user)
-              .then(() => {
-                showPopup(popupSuccess, "please verify your email");
-                signOut(auth);
-              })
-              .catch((e) => {
-                showPopup(popupInvalid, e.message);
-              });
+        //     // ask new user to verify email
+        //     sendEmailVerification(cred.user)
+        //       .then(() => {
+        //         showPopup(popupSuccess, "please verify your email");
+        //         signOut(auth);
+        //       })
+        //       .catch((e) => {
+        //         showPopup(popupInvalid, e.message);
+        //       });
 
-            // Reset the form inputs
-            resetForm();
+        //     // Reset the form inputs
+        //     resetForm();
 
-            setUserState("Sign In");
-          })
-          .catch((e) => {
-            showPopup(popupInvalid, e.message);
-          });
+        //     setUserState("Sign In");
+        //   })
+        //   .catch((e) => {
+        //     showPopup(popupInvalid, e.message);
+        //   });
         break;
 
       default:

@@ -59,29 +59,20 @@ export function Header({ setPage }) {
   return (
     <>
       {/* setting button */}
-      <div className="setting">
+      {/* <div className="setting"> */}
         {/* later */}
         {/* night mode toggle */}
-        <label className="dark-switch">
+        {/* <label className="dark-switch">
           <input id="dark-slider" type="checkbox" />
           <span className="dark-slider"></span>
-        </label>
+        </label> */}
         {/* white space */}
-        &nbsp;
-      </div>
+        {/* &nbsp;
+      </div> */}
 
       {/* banner */}
       <div className="banner" id="banner">
         banner ~put image here~
-        {/* sneaky button for user to login */}
-        <button
-          className="signin-smolbtn"
-          id="user"
-          onClick={() => {
-            setPage("User");
-          }}>
-          sign in?
-        </button>
       </div>
 
       {/* nav bar */}
