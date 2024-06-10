@@ -1,16 +1,4 @@
-import { useEffect } from "react";
-import { onAuthStateChanged } from "firebase/auth";
-
-import { auth } from "../index";
-
 export function Help() {
-  // debug
-  useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
-      console.log(user ? "bruh" : "bruh buhr");
-    });
-  }, []);
-
   return (
     <>
       {/* content container display selected section */}
