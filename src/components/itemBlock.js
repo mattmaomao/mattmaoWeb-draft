@@ -23,7 +23,7 @@ export function ItemBlock({ id, title, link, image, date, tag, description, item
         {/* image */}
         <img
           className="block-image"
-          src={"./img/" + image}
+          src={image}
           alt="where's my img :("
         />
         {/* info */}
