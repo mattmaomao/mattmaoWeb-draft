@@ -12,9 +12,18 @@ export function Help() {
             padding: "16px",
             fontSize: "20px",
             rowGap: "16px",
-          }}>
+          }}
+        >
           <p>find any bug?</p>
-          <p>contact me.</p>
+          {/* <a>contact me.</a> */}
+          <a
+            href="https://forms.gle/GscEAARN9CtLTQnm6"
+            rel="noreferrer"
+            target="_blank"
+            style={{textDecoration: "none", cursor: "text"}}
+          >
+            contact me.
+          </a>
           <p>dun know how to contact me?</p>
           <p>well... idk too</p>
         </div>

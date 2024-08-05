@@ -62,14 +62,19 @@ export function About({ colRef }) {
             </tbody>
           </table>
           <div className="img-container">
-            <img src="./img/chomusuke.png" alt="bruh my img :(" />
+            <img
+              src="https://firebasestorage.googleapis.com/v0/b/mattmaoweb.appspot.com/o/cover_image%2FChomusuke.png?alt=media&token=c94eab2e-fba8-4c9d-b92a-13e8a8b1f701"
+              alt="bruh my img :("
+            />
           </div>
         </div>
         {/* quote of the day */}
         <div className="quote-of-the-day">
           <div className="quote-title">
             <h3>Quote of the day:</h3>
-            <button onClick={() => anotherQuote()}><img src={RefreshIcon} alt="" /></button>
+            <button onClick={() => anotherQuote()}>
+              <img src={RefreshIcon} alt="" />
+            </button>
           </div>
 
           {quoteContent}
@@ -81,7 +86,8 @@ export function About({ colRef }) {
             <a
               href="https://forms.gle/NX57rRUukQGc5L3F6"
               rel="noreferrer"
-              target="_blank">
+              target="_blank"
+            >
               <span htmlFor="showForm">Submit one in google form!</span>
             </a>
           </p>
