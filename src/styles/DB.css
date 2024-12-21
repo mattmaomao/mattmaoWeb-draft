@@ -18,7 +18,7 @@
 
 .DB_Table .submitBtn button {
   padding: 8px 16px;
-  border: solid black 1px;
+  border: solid var(--solidLine-color) 1px;
   border-radius: 16x;
 }
 
@@ -42,8 +42,8 @@
   justify-content: space-around;
   align-items: center;
   
-  background-color: #eeee;
-  border: solid 1px black;
+  background-color: var(--sec-bg-color);
+  border: solid 1px var(--solidLine-color);
   border-radius: 4px;
 }
 .popup .failure {

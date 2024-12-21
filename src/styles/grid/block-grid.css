@@ -17,7 +17,7 @@
   display: grid;
   grid-template-rows: 240px 1fr;
   outline: auto;
-  outline-color: black;
+  outline-color: var(--solidLine-color);
 }
 
 .block-image {
@@ -25,7 +25,7 @@
   height: 100%;
   outline: auto;
 
-  outline-color: black;
+  outline-color: var(--solidLine-color);
 
   cursor: pointer;
 }

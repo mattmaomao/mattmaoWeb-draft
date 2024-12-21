@@ -40,7 +40,7 @@
   height: 32px;
 
   cursor: pointer;
-  background-color: #eee;
+  background-color: var(--sec-bg-color);
 }
 
 /* filter */
@@ -55,7 +55,7 @@
 
   cursor: pointer;
   position: relative;
-  background-color: #eee;
+  background-color: var(--sec-bg-color);
 }
 
 .dropdown-list {
@@ -66,7 +66,7 @@
   right: -0.8px;
   top: 30px;
   border: solid 1px #333;
-  background-color: #eee;
+  background-color: var(--sec-bg-color);
 }
 
 .show {

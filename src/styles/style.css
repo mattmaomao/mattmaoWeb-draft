@@ -1,19 +1,44 @@
+/* color palette */
+:root {
+  --pri-bg-color: #ddd;
+  --sec-bg-color: #eee;
+  --text-color: #333;
+  --solidLine-color: #444;
+  --transparentLine-color: #3332;
+
+  --negative-bg-color: #858585;
+  --negative-text-color: #eee;
+}
+/* Dark theme color */
+[data-bs-theme="dark"] {
+  --pri-bg-color: #333;
+  --sec-bg-color: #858585;
+  --text-color: #eee;
+  --solidLine-color: #0ff;
+  --transparentLine-color: #0ef7;
+
+  --negative-bg-color: #ddd;
+  --negative-text-color: #222;
+}
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   border: none;
   outline: none;
+  color: var(--text-color);
 }
 
 body {
-  background-color: #ddd;
+  background-color: var(--pri-bg-color);
 }
 
 .setting {
   text-align: right;
   position: absolute;
-  right: 0;
+  top: 8px;
+  right: 8px;
   z-index: 10;
 }
 
@@ -78,21 +103,22 @@ input:checked + .dark-slider:before {
   min-height: 100px;
   height: 100px;
 
-  background-color: #ddd;
+  background-color: var(--pri-bg-color);
 }
 
 footer {
   bottom: 0;
   width: 100%;
-  background: grey;
+  background: var(--negative-bg-color);
   text-align: right;
   padding: 5px;
   font-size: 12px;
+  color: var(--negative-text-color);
 }
 
 /* link */
 a {
-  color: black;
+  color: var(--text-color);
 }
 
 /* sign in option */

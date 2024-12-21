@@ -15,11 +15,14 @@
   flex-wrap: nowrap;
   flex-direction: row;
 
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid var(--solidLine-color);
 }
 
-.bars .title,
+.bars .title {
+  flex: 2;
+}
 .bars .date {
+  text-align: center;
   flex: 2;
 }
 .bars .tags {

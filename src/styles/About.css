@@ -13,7 +13,7 @@
   border-collapse: collapse;
 }
 .text-container tr {
-  border-bottom: 1px #3332 solid;
+  border-bottom: 1px var(--transparentLine-color) solid;
 }
 .text-container tr:last-child {
   border-bottom: none;
@@ -24,7 +24,7 @@
   white-space: nowrap;
   align-items: center;
   text-align: center;
-  border-right: 1px #3332 solid;
+  border-right: 1px var(--transparentLine-color) solid;
 }
 .text-container td {
   padding-left: 40px;
@@ -34,7 +34,7 @@
 .img-container {
   width: 240px;
   height: 240px;
-  background-color: #888;
+  background-color: var(--sec-bg-color);
 }
 .img-container img {
   width: 100%;

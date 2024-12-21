@@ -73,7 +73,7 @@ export function About({ colRef }) {
           <div className="quote-title">
             <h3>Quote of the day:</h3>
             <button onClick={() => anotherQuote()}>
-              <img src={RefreshIcon} alt="" />
+              <img src={RefreshIcon} color="var(--text-color)" alt="" />
             </button>
           </div>
 

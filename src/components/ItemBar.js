@@ -1,4 +1,13 @@
-export function ItemBar({ id, title, link, date, tag, description, itemType, viewItem }) {
+export function ItemBar({
+  id,
+  title,
+  link,
+  date,
+  tag,
+  description,
+  itemType,
+  viewItem,
+}) {
   // set the link for detailed page/ external link
   const setLink = () => {
     if (link) {
@@ -9,7 +18,10 @@ export function ItemBar({ id, title, link, date, tag, description, itemType, vie
       );
     } else {
       return (
-        <button onClick={() => viewItem([itemType, id])} className="title title-btn">
+        <button
+          onClick={() => viewItem([itemType, id])}
+          className="title title-btn"
+        >
           <strong>{title}</strong>
         </button>
       );
@@ -23,7 +35,7 @@ export function ItemBar({ id, title, link, date, tag, description, itemType, vie
         {/* title */}
         {setLink()}
         {/* date */}
-        <p className="date">{date}</p>
+        <p className="date">{date.split("/")[0] + "/" + date.split("/")[1]}</p>
         {/* tag */}
         <p className="tags">
           {tag && tag.slice(0, 5).map((x) => "#" + x + " ")}

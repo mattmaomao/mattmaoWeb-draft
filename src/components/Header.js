@@ -1,10 +1,13 @@
-import { useEffect, useState } from "react";
+import { useEffect, useInsertionEffect, useState } from "react";
 
 import { SecretInput } from "../components/SecretInput";
-import { auth } from "../index";
 
 export function Header({ setPage }) {
   const [currThing, setCurrThing] = useState("");
+  const [darkModeOn, setDarkModeOn] = useState(
+    localStorage.getItem("darkMode") == "true" || false
+  );
+
   //set content container height
   useEffect(() => {
     const bannerHeight = document.getElementById("banner").offsetHeight;
@@ -38,6 +41,22 @@ export function Header({ setPage }) {
     setPage(content);
   }
 
+  // toggle dark mode
+  function toggleDarkMode(e) {
+    const darkMode = e.target.checked;
+    setDarkModeOn(darkMode);
+    localStorage.setItem("darkMode", darkMode);
+  }
+  // set dark mode
+  useEffect(() => {
+    const htmlElement = document.querySelector("html");
+    if (darkModeOn) {
+      htmlElement.setAttribute("data-bs-theme", "dark");
+    } else {
+      htmlElement.setAttribute("data-bs-theme", "light");
+    }
+  }, [darkModeOn]);
+
   // secret---------------------------------------
   // open database
   const openDBPage = () => {
@@ -53,16 +72,21 @@ export function Header({ setPage }) {
   return (
     <>
       {/* setting button */}
-      {/* <div className="setting"> */}
+      <div className="setting">
         {/* later */}
         {/* night mode toggle */}
-        {/* <label className="dark-switch">
-          <input id="dark-slider" type="checkbox" />
+        <label className="dark-switch">
+          <input
+            id="dark-slider"
+            type="checkbox"
+            checked={darkModeOn}
+            onChange={(e) => toggleDarkMode(e)}
+          />
           <span className="dark-slider"></span>
-        </label> */}
-        {/* white space */}
-        {/* &nbsp;
-      </div> */}
+        </label>
+        {/* white space  */}
+        &nbsp;
+      </div>
 
       {/* banner */}
       <div className="banner" id="banner">
@@ -76,7 +100,8 @@ export function Header({ setPage }) {
           onClick={() => {
             changeContent("Home");
             changeTitle("");
-          }}>
+          }}
+        >
           Home
         </button>
 
@@ -91,7 +116,8 @@ export function Header({ setPage }) {
                   onClick={() => {
                     changeContent("Drawings");
                     changeTitle("Drawings");
-                  }}>
+                  }}
+                >
                   Drawings
                 </button>
               </li>
@@ -101,7 +127,8 @@ export function Header({ setPage }) {
                   onClick={() => {
                     changeContent("Games");
                     changeTitle("Games");
-                  }}>
+                  }}
+                >
                   Games
                 </button>
               </li>
@@ -111,7 +138,8 @@ export function Header({ setPage }) {
                   onClick={() => {
                     changeContent("Stories");
                     changeTitle("Stories");
-                  }}>
+                  }}
+                >
                   Stories
                 </button>
               </li>
@@ -121,7 +149,8 @@ export function Header({ setPage }) {
                   onClick={() => {
                     changeContent("DevLogs");
                     changeTitle("Dev Logs");
-                  }}>
+                  }}
+                >
                   Dev Logs
                 </button>
               </li>
@@ -134,7 +163,8 @@ export function Header({ setPage }) {
           onClick={() => {
             changeContent("About");
             changeTitle("");
-          }}>
+          }}
+        >
           About
         </button>
 
@@ -143,7 +173,8 @@ export function Header({ setPage }) {
           onClick={() => {
             changeContent("Help");
             changeTitle("");
-          }}>
+          }}
+        >
           Help
         </button>
       </div>

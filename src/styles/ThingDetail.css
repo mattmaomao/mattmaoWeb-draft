@@ -8,7 +8,7 @@
 .detailed .description {
   margin: 8px;
   padding-bottom: 16px;
-  border-bottom: solid 1px black;
+  border-bottom: solid 1px var(--solidLine-color);
 }
 
 .detailed .date,
