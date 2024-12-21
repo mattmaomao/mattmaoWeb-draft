@@ -48,12 +48,6 @@ export function Header({ setPage }) {
     changeContent("Home");
   };
   const closeDB = SecretInput("gohome", goHome);
-
-  // manage user
-  const openUserPage = () => {
-    changeContent("User");
-  };
-  const openUser = SecretInput("gouser", openUserPage);
   // secret---------------------------------------
 
   return (

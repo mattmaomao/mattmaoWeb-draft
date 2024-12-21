@@ -7,7 +7,6 @@ import { ThingDetail } from "./ThingDetail";
 import { About } from "./About";
 import { Help } from "./Help";
 import { DB } from "./hide/DB";
-import { USER } from "./hide/USER";
 
 import { Header } from "../components/Header";
 import { Footer } from "../components/Footer";
@@ -79,9 +78,6 @@ export function Landing() {
       // secret
       case "Database":
         setComp(<DB />);
-        break;
-      case "User":
-        setComp(<USER />);
         break;
       default:
         setComp(<Home />);
